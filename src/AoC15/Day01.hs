@@ -3,6 +3,9 @@ module AoC15.Day01
 , aoc201501b
 ) where
 
+import Data.Maybe (fromMaybe)
+import Data.List (findIndex)
+
 direction c = case c of
   '(' -> 1
   ')' -> -1
@@ -12,4 +15,4 @@ aoc201501a =
     sum . map direction
 
 aoc201501b =
-    length . takeWhile (> -1) . scanl (+) 0 . map direction
+    fromMaybe (-500) . findIndex (< 0) . scanl (+) 0 . map direction
