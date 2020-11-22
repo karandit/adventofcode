@@ -1,14 +1,10 @@
 module Main where
 
-direction c = case c of
-  '(' -> 1
-  ')' -> -1
-  otherwise  -> 0
+import AoC15.Day01
 
 main :: IO ()
 main = do
-    raw <- readFile "input201501.txt"
-    let directions = map direction raw
-    let gold = sum $ directions
-    let silver = length $ takeWhile (> -1) $ scanl (+) 0 directions
+    input <- readFile "input201501.txt"
+    let gold = aoc201501a input
+    let silver = aoc201501b input
     print (gold, silver)
