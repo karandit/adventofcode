@@ -16,7 +16,7 @@ testAoC201501a = TestList
             , "AoC 2015/01a" ~:  3 ~=? (aoc201501a "))(((((")
             , "AoC 2015/01a" ~:(-1)~=? (aoc201501a "))(")
             , "AoC 2015/01a" ~:(-3)~=? (aoc201501a ")())())")
-            , "AoC 2015/01a" ~: do
+            , TestCase $ do
                 input <- readFile "/home/tomi/code/github.com/karandit/adventofcode/test/input201501.txt"
                 assertEqual "AoC 2015/01a" 138 (aoc201501a input)
             ]
