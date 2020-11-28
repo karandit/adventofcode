@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       AoC15.Day01
+      AoC15.Day02
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
