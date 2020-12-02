@@ -3,7 +3,7 @@ module Spec2020
 ) where
 
 import Test.HUnit
-import AoC20.Day01
+import AoC2020.Day01
 
 tests = TestList
             [ testAoC202001a

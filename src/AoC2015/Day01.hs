@@ -1,4 +1,4 @@
-module AoC15.Day01
+module AoC2015.Day01
 ( aoc201501a
 , aoc201501b
 ) where

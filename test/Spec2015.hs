@@ -3,9 +3,9 @@ module Spec2015
 ) where
 
 import Test.HUnit
-import AoC15.Day01
-import AoC15.Day02
-import AoC15.Day03
+import AoC2015.Day01
+import AoC2015.Day02
+import AoC2015.Day03
 
 tests = TestList
             [ testAoC201501a

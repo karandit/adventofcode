@@ -1,4 +1,4 @@
-module AoC15.Day02
+module AoC2015.Day02
 ( aoc201502a
 , aoc201502b
 , parseInput201502)

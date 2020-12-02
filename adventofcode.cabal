@@ -27,10 +27,10 @@ source-repository head
 
 library
   exposed-modules:
-      AoC15.Day01
-      AoC15.Day02
-      AoC15.Day03
-      AoC20.Day01
+      AoC2015.Day01
+      AoC2015.Day02
+      AoC2015.Day03
+      AoC2020.Day01
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
