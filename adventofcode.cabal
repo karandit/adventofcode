@@ -30,6 +30,7 @@ library
       AoC15.Day01
       AoC15.Day02
       AoC15.Day03
+      AoC20.Day01
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
@@ -53,8 +54,10 @@ executable adventofcode-exe
 
 test-suite adventofcode-test
   type: exitcode-stdio-1.0
-  main-is: Spec.hs
+  main-is: AllSpec.hs
   other-modules:
+      Spec2015
+      Spec2020
       Paths_adventofcode
   hs-source-dirs:
       test

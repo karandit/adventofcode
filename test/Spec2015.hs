@@ -1,9 +1,11 @@
+module Spec2015
+( tests
+) where
+
 import Test.HUnit
 import AoC15.Day01
 import AoC15.Day02
 import AoC15.Day03
-
-main = runTestTT tests
 
 tests = TestList
             [ testAoC201501a
