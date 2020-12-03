@@ -5,12 +5,15 @@ module Spec2020
 import Test.HUnit
 import AoC2020.Day01
 import AoC2020.Day02
+import AoC2020.Day03
 
 tests = TestList
             [ testAoC202001a
             , testAoC202001b
             , testAoC202002a
             , testAoC202002b
+            , testAoC202003a
+            , testAoC202003b
             ]
 
 testAoC202001a = TestList
@@ -46,3 +49,22 @@ testAoC202002b = TestList
                 input <- readFile "test/input202002.txt"
                 assertEqual "AoC 2020/02b" 404 (aoc202002b $ parseInput202002 input)
             ]
+
+testAoC202003a = TestList
+            [ TestCase $ do
+                input <- readFile "test/input202003_sample.txt"
+                assertEqual "AoC 2020/03a" 7 (aoc202003a input)
+            , TestCase $ do
+                input <- readFile "test/input202003.txt"
+                assertEqual "AoC 2020/03a" 191 (aoc202003a input)
+            ]
+
+testAoC202003b = TestList
+            [ TestCase $ do
+                input <- readFile "test/input202003_sample.txt"
+                assertEqual "AoC 2020/03b" 336 (aoc202003b input)
+            , TestCase $ do
+                input <- readFile "test/input202003.txt"
+                assertEqual "AoC 2020/03b" 1478615040 (aoc202003b input)
+            ]
+
