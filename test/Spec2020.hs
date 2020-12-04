@@ -6,6 +6,7 @@ import Test.HUnit
 import AoC2020.Day01
 import AoC2020.Day02
 import AoC2020.Day03
+import AoC2020.Day04
 
 tests = TestList
           -- Day01
@@ -56,6 +57,26 @@ tests = TestList
             , TestCase $ do
                 input <- readFile "test/input202003.txt"
                 assertEqual "AoC 2020/03b" 1478615040 (aoc202003b input)
+            ]
+          -- Day04
+          , TestList
+            [ TestCase $ do
+--                input <- readFile "test/input202004_sample.txt"
+--                assertEqual "AoC 2020/04a" 2 (aoc202004a input)
+--           , TestCase $ do
+                input <- readFile "test/input202004.txt"
+                assertEqual "AoC 2020/04a" 222 (aoc202004a input)
+            ]
+          , TestList
+            [ TestCase $ do
+                input <- readFile "test/input202004_invalid.txt"
+                assertEqual "AoC 2020/04b" 0 (aoc202004b input)
+--            , TestCase $ do
+--                input <- readFile "test/input202004_valid.txt"
+--                assertEqual "AoC 2020/04b" 4 (aoc202004b input)
+            , TestCase $ do
+                input <- readFile "test/input202004.txt"
+                assertEqual "AoC 2020/04b" 140 (aoc202004b input)
             ]
           ]
 
