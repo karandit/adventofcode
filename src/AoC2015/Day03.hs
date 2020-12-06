@@ -5,12 +5,11 @@ where
 
 import qualified Data.Set as Set
 
-move c pos@(x, y) = case c of
-  'v' -> (x    , y + 1)
-  '^' -> (x    , y - 1)
-  '>' -> (x + 1, y    )
-  '<' -> (x - 1, y    )
-  otherwise -> pos
+move 'v' (x, y) = (x    , y + 1)
+move '^' (x, y) = (x    , y - 1)
+move '>' (x, y) = (x + 1, y    )
+move '<' (x, y) = (x - 1, y    )
+move _   pos    = pos
 
 initialPos = ((0,0), Set.singleton (0, 0))
 stepPos (pos, visited) c =
