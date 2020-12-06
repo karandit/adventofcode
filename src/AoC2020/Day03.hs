@@ -3,12 +3,14 @@ module AoC2020.Day03
 , aoc202003b
 ) where
 
+import Utils
+
 countTrees left down =
-    let slope (col, row, count) trees =
-          if row `mod` down == 0
-          then ((col + left) `mod` (length trees), row + 1, count + (if trees!!col == '#' then 1 else 0))
-          else (col, row + 1, count)
-    in foldl slope (left, down, 0)
+  let slope (col, row, count) trees =
+        if row `mod` down == 0
+        then ((col + left) `mod` (length trees), row + 1, count + (trees!!col == '#' ? 1 :? 0))
+        else (col, row + 1, count)
+  in foldl slope (left, down, 0)
 
 aoc202003a input =
   let rows = tail $ lines input
