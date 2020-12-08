@@ -2,6 +2,7 @@ module Utils
 ( readInt
 , replace
 , freq
+, replaceNth
 , (?)
 , Cond (..)
 ) where
@@ -14,6 +15,8 @@ readInt = read
 replace fromC toC = map (\c -> if c == fromC then toC else c)
 
 freq s = M.fromListWith (+) [(c, 1) | c <- s]
+
+replaceNth pos newVal list = take pos list ++ newVal : drop (pos+1) list
 -- ternary operator
 data Cond a = a :? a
 
