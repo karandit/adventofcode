@@ -39,7 +39,8 @@ fieldsPresentAndValid store =
 solution pred input =
   let countPass (store, count) ""  = (M.empty, count + (if pred store then 1 else 0))
       countPass (store, count) row = (M.union store $ parseRow row, count)
-  in snd $ foldl countPass (M.empty, 0) $ reverse $ lines input 
+      res = foldl countPass (M.empty, 0) $ lines input
+  in snd $ countPass res ""
 
 aoc202004a = solution fieldsPresent
 aoc202004b = solution fieldsPresentAndValid
