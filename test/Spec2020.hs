@@ -15,6 +15,8 @@ import AoC2020.Day09
 import AoC2020.Day10
 import AoC2020.Day11
 import AoC2020.Day12
+import AoC2020.Day13
+import AoC2020.Day14
 
 tests = TestList
           -- Day01
@@ -203,5 +205,35 @@ tests = TestList
             , TestCase $ do
                 input <- readFile "test/input202012.txt"
                 assertEqual "AoC 2020/12b" 52866 (aoc202012b input)
+            ]
+          -- Day13
+          , TestList
+            [ TestCase $ do
+                input <- readFile "test/input202013_sample.txt"
+                assertEqual "AoC 2020/13a sample" 295 (aoc202013a input)
+            , TestCase $ do
+                input <- readFile "test/input202013.txt"
+                assertEqual "AoC 2020/13a" 174 (aoc202013a input)
+            , TestCase $ do
+                input <- readFile "test/input202013_sample.txt"
+                assertEqual "AoC 2020/13b sample" 1068781 (aoc202013b input)
+            , TestCase $ do
+                input <- readFile "test/input202013.txt"
+                assertEqual "AoC 2020/13b" 780601154795940 (aoc202013b input)
+            ]
+          -- Day14
+          , TestList
+            [ TestCase $ do
+                --input <- readFile "test/input202014_sample1.txt"
+                --assertEqual "AoC 2020/14a sample" 25 (aoc202014a input)
+            --, TestCase $ do
+                input <- readFile "test/input202014.txt"
+                assertEqual "AoC 2020/14a" 13496669152158 (aoc202014a input)
+            --, TestCase $ do
+                --input <- readFile "test/input202014_sample2.txt"
+                --assertEqual "AoC 2020/14b sample" 286 (aoc202014b input)
+            , TestCase $ do
+                input <- readFile "test/input202014.txt"
+                assertEqual "AoC 2020/14b" 3278997609887 (aoc202014b input)
             ]
           ]
