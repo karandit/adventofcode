@@ -17,6 +17,7 @@ import AoC2020.Day11
 import AoC2020.Day12
 import AoC2020.Day13
 import AoC2020.Day14
+import AoC2020.Day15
 
 tests = TestList
           -- Day01
@@ -235,5 +236,16 @@ tests = TestList
             , TestCase $ do
                 input <- readFile "test/input202014.txt"
                 assertEqual "AoC 2020/14b" 3278997609887 (aoc202014b input)
+            ]
+            -- Day15
+          , TestList
+            [    1 ~=? (aoc202015a 2020 [1,3,2])
+            ,   10 ~=? (aoc202015a 2020 [2,1,3])
+            ,   27 ~=? (aoc202015a 2020 [1,2,3])
+            ,   78 ~=? (aoc202015a 2020 [2,3,1])
+            ,  438 ~=? (aoc202015a 2020 [3,2,1])
+            , 1836 ~=? (aoc202015a 2020 [3,1,2])
+            , 1259 ~=? (aoc202015a 2020 [15,5,1,4,7,0])
+            --,  689 ~=? (aoc202015b 30000000 [15,5,1,4,7,0]) -- TODO it is slow, see Go impl
             ]
           ]
