@@ -16,12 +16,12 @@ readCubes input =
         $ zip [0..] row
     ) S.empty  $ zip [0..] $ lines input
 
-stepGen :: Ord z => (z -> z -> z) -> [(Int, Int, z)] -> S.Set (Int, Int, z) -> S.Set (Int, Int, z)
+stepGen :: Ord z => (z -> z -> z) -> S.Set (Int, Int, z) -> S.Set (Int, Int, z) -> S.Set (Int, Int, z)
 stepGen shiftZ deltaZ cubes =
     let
         shift3D (x, y, z) (dx, dy, dz) = (x + dx, y + dy, shiftZ z dz)
-        perimeter cube = fmap (shift3D cube) deltaZ
-        neighbours = freq $ concat $ S.foldl' (\acc cube -> (perimeter cube):acc) [] cubes
+        perimeter cube = S.toList $ S.map (shift3D cube) deltaZ
+        neighbours = freq $ concat $ S.toList $ S.map perimeter cubes
     in
     M.foldlWithKey (\acc pos occurences ->
             case occurences of
@@ -30,68 +30,11 @@ stepGen shiftZ deltaZ cubes =
               _ -> acc
     ) S.empty neighbours
 
-delta2D :: [(Int, Int)]
-delta2D = [
-      (-1, -1), (-1, 0), (-1, 1),
-      ( 0, -1), ( 0, 0), ( 0, 1),
-      ( 1, -1), ( 1, 0), ( 1, 1)
-    ]
+grid3D :: [(Int, Int, Int)]
+grid3D = [(x, y, z) | x <- [-1, 0, 1], y <- [-1, 0, 1], z <- [-1, 0, 1]]
 
-delta3D :: [(Int, Int, Int)]
-delta3D = [
-      (-1, -1, -1), (-1, 0, -1), (-1, 1, -1),
-      ( 0, -1, -1), ( 0, 0, -1), ( 0, 1, -1),
-      ( 1, -1, -1), ( 1, 0, -1), ( 1, 1, -1),
-
-      (-1, -1, 0), (-1, 0, 0), (-1, 1, 0),
-      ( 0, -1, 0),             ( 0, 1, 0),
-      ( 1, -1, 0), ( 1, 0, 0), ( 1, 1, 0),
-
-      (-1, -1, 1), (-1, 0, 1), (-1, 1, 1),
-      ( 0, -1, 1), ( 0, 0, 1), ( 0, 1, 1),
-      ( 1, -1, 1), ( 1, 0, 1), ( 1, 1, 1)
-        ]
-
-delta4D :: [(Int, Int, (Int, Int))]
-delta4D = [
-      --w=-1
-      (-1, -1, (-1, -1)), (-1, 0, (-1, -1)), (-1, 1, (-1, -1)),
-      ( 0, -1, (-1, -1)), ( 0, 0, (-1, -1)), ( 0, 1, (-1, -1)),
-      ( 1, -1, (-1, -1)), ( 1, 0, (-1, -1)), ( 1, 1, (-1, -1)),
-
-      (-1, -1, (0, -1)), (-1, 0, (0, -1)), (-1, 1, (0, -1)),
-      ( 0, -1, (0, -1)), ( 0, 0, (0, -1)), ( 0, 1, (0, -1)),
-      ( 1, -1, (0, -1)), ( 1, 0, (0, -1)), ( 1, 1, (0, -1)),
-
-      (-1, -1, (1, -1)), (-1, 0, (1, -1)), (-1, 1, (1, -1)),
-      ( 0, -1, (1, -1)), ( 0, 0, (1, -1)), ( 0, 1, (1, -1)),
-      ( 1, -1, (1, -1)), ( 1, 0, (1, -1)), ( 1, 1, (1, -1)),
-      --w=0
-      (-1, -1, (-1, 0)), (-1, 0, (-1, 0)), (-1, 1, (-1, 0)),
-      ( 0, -1, (-1, 0)), ( 0, 0, (-1, 0)), ( 0, 1, (-1, 0)),
-      ( 1, -1, (-1, 0)), ( 1, 0, (-1, 0)), ( 1, 1, (-1, 0)),
-
-      (-1, -1, (0, 0)), (-1, 0, (0, 0)), (-1, 1, (0, 0)),
-      ( 0, -1, (0, 0)),                  ( 0, 1, (0, 0)),
-      ( 1, -1, (0, 0)), ( 1, 0, (0, 0)), ( 1, 1, (0, 0)),
-
-      (-1, -1, (1, 0)), (-1, 0, (1, 0)), (-1, 1, (1, 0)),
-      ( 0, -1, (1, 0)), ( 0, 0, (1, 0)), ( 0, 1, (1, 0)),
-      ( 1, -1, (1, 0)), ( 1, 0, (1, 0)), ( 1, 1, (1, 0)),
-      --w=1
-      (-1, -1, (-1, 1)), (-1, 0, (-1, 1)), (-1, 1, (-1, 1)),
-      ( 0, -1, (-1, 1)), ( 0, 0, (-1, 1)), ( 0, 1, (-1, 1)),
-      ( 1, -1, (-1, 1)), ( 1, 0, (-1, 1)), ( 1, 1, (-1, 1)),
-
-      (-1, -1, (0, 1)), (-1, 0, (0, 1)), (-1, 1, (0, 1)),
-      ( 0, -1, (0, 1)), ( 0, 0, (0, 1)), ( 0, 1, (0, 1)),
-      ( 1, -1, (0, 1)), ( 1, 0, (0, 1)), ( 1, 1, (0, 1)),
-
-      (-1, -1, (1, 1)), (-1, 0, (1, 1)), (-1, 1, (1, 1)),
-      ( 0, -1, (1, 1)), ( 0, 0, (1, 1)), ( 0, 1, (1, 1)),
-      ( 1, -1, (1, 1)), ( 1, 0, (1, 1)), ( 1, 1, (1, 1))
-
-        ]
+grid4D :: [(Int, Int, (Int, Int))]
+grid4D = [(x, y, (z, w)) | x <- [-1, 0, 1], y <- [-1, 0, 1], z <- [-1, 0, 1], w <- [-1, 0, 1]]
 
 shift3D :: Int -> Int -> Int
 shift3D z dz = z + dz
@@ -100,10 +43,11 @@ shift4D :: (Int, Int) -> (Int, Int) -> (Int, Int)
 shift4D (z, w) (dz, dw) = (z + dz, w + dw)
 
 solution :: Ord z => (z -> z -> z) -> [(Int, Int, z)] -> z -> String -> Int
-solution shiftZ deltaZ z input =
-    let cubes = S.map (\(x,y) -> (x, y, z)) $ readCubes input
+solution shiftZ gridZ origoZ input =
+    let cubes = S.map (\(x,y) -> (x, y, origoZ)) $ readCubes input
+        deltaZ = S.difference (S.fromList gridZ) (S.singleton (0, 0, origoZ))
         step = stepGen shiftZ deltaZ
     in S.size $ step $ step $ step $ step $ step $ step $ cubes
 
-aoc202017a = solution shift3D delta3D 0 
-aoc202017b = solution shift4D delta4D (0, 0)
+aoc202017a = solution shift3D grid3D 0
+aoc202017b = solution shift4D grid4D (0, 0)
