@@ -48,6 +48,7 @@ library
       AoC2020.Day15
       AoC2020.Day16
       AoC2020.Day17
+      AoC2020.Day18
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
