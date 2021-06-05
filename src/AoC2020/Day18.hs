@@ -1,65 +1,59 @@
 module AoC2020.Day18
 ( aoc202018a
 , aoc202018b
+, calc1
+, calc2
 ) where
 
 import Data.Foldable (foldl')
+import Data.List (break)
 import Data.Char (digitToInt)
-import qualified Data.Maybe as Maybe
 
-toRPN :: (String, String) -> Char -> (String, String)
-toRPN (ops, rpn) ' ' = (ops, rpn)
-toRPN (ops, rpn) '(' = ('(':ops, rpn)
-toRPN (ops, rpn) '+' = splitOps '+' (ops, rpn)
-toRPN (ops, rpn) '*' = splitOps '*' (ops, rpn)
-toRPN (ops, rpn) ')'   = splitPar (ops, rpn)
-toRPN (ops, rpn) c   = (ops, c:rpn)
+toRPN :: (Char -> Int) -> (String, String) -> Char -> (String, String)
+toRPN precedence (rpn, ops) c =
+  let
+    handleOp :: Char -> (String , String) -> (String, String)
+    handleOp op (rpn, ops) =
+      let precCurrOp = precedence op
+          (bef, aft) = break (\o -> precedence o < precCurrOp) ops
+      in ((reverse bef) ++ rpn, op:aft)
 
-preced :: Char -> Int
-preced '(' = 0
-preced '+' = 2
-preced '*' = 1
-
-splitOps :: Char -> (String , String) -> (String, String)
-splitOps op (ops, rpn) = 
-   let (h, t) = splitStack ([], ops) (preced op) 
-   in (op:t, h ++ rpn)
-
-splitStack :: (String, String) -> Int -> (String, String) 
-splitStack (acc, []) _ = (acc, []) 
-splitStack (acc, ops@(opsH:opsT)) precOp =
-     if (preced opsH > precOp) 
-     then splitStack (opsH:acc, opsT) precOp
-     else (acc, ops)
-
-splitPar :: (String, String) -> (String, String)
-splitPar ('(':ops, rpn) = (ops, rpn)
-splitPar (op:ops, rpn) = splitPar (ops, op:rpn)
+    handlePar :: (String, String) -> (String, String)
+    handlePar (rpn, ops) =
+      let (bef, '(':aft) = break (=='(') ops
+      in ((reverse bef) ++ rpn, aft)
+  in
+    case c of
+      ' ' -> (rpn, ops)
+      '+' -> handleOp c (rpn, ops)
+      '*' -> handleOp c (rpn, ops)
+      '(' -> (rpn, c:ops)
+      ')' -> handlePar (rpn, ops)
+      dig -> (dig:rpn, ops)
 
 evalRPN :: [Int] -> Char -> [Int]
 evalRPN (num1:num2:nums) '+' = (num1+num2):nums
 evalRPN (num1:num2:nums) '*' = (num1*num2):nums
-evalRPN nums c   = (digitToInt c):nums
+evalRPN nums c               = (digitToInt c):nums
 
---calc :: String -> String
-calc s =
-        let rpnt@(rest, rpn) = foldl' toRPN ([], "") s
-            rpnf = (reverse rpn) ++ rest
-        in head $ foldl' evalRPN [] rpnf
-        --in (rpnt, rpnf)
+calc :: (Char -> Int) -> String -> Int
+calc precedence s =
+  let (rpnTemp, ops) = foldl' (toRPN precedence) ("", "") s
+      rpn = (reverse rpnTemp) ++ ops
+  in head $ foldl' evalRPN [] rpn
 
-main :: IO ()
-main= do 
-    input <- readFile "input18.txt"
-    putStrLn . show . sum . map calc $ lines input
+precedence1 :: Char -> Int
+precedence1 '(' = 0
+precedence1 '+' = 1
+precedence1 '*' = 1
 
-main_:: IO ()
-main_ = do 
-    putStrLn $ show $ calc "1 + (2 * 3) + (4 * (5 + 6))"
-    putStrLn $ show $ calc "2 * 3 + (4 * 5)"
-    putStrLn $ show $ calc "5 + (8 * 3 + 9 + 3 * 4 * 3)"
-    putStrLn $ show $ calc "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))"
-    putStrLn $ show $ calc "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"
+precedence2 :: Char -> Int
+precedence2 '(' = 0
+precedence2 '+' = 2
+precedence2 '*' = 1
 
-aoc202018a = 1
-aoc202018b = 1
+calc1 = calc precedence1
+calc2 = calc precedence2
+
+aoc202018a = sum . map calc1 . lines
+aoc202018b = sum . map calc2 . lines

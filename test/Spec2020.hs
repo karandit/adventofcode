@@ -20,6 +20,7 @@ import AoC2020.Day14
 import AoC2020.Day15
 import AoC2020.Day16
 import AoC2020.Day17
+import AoC2020.Day18
 
 tests = TestList
           -- Day01
@@ -276,5 +277,24 @@ tests = TestList
             , TestCase $ do
                 input <- readFile "test/input202017.txt"
                 assertEqual "AoC 2020/17b" 2532 (aoc202017b input)
+            ]
+            -- Day18
+          , TestList
+            [     51 ~=? (calc1 "1 + (2 * 3) + (4 * (5 + 6))")
+            ,     26 ~=? (calc1 "2 * 3 + (4 * 5)")
+            ,    437 ~=? (calc1 "5 + (8 * 3 + 9 + 3 * 4 * 3)")
+            ,  12240 ~=? (calc1 "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))")
+            ,  13632 ~=? (calc1 "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2")
+            , TestCase $ do
+                input <- readFile "test/input202018.txt"
+                assertEqual "AoC 2020/18a" 86311597203806 (aoc202018a input)
+            ,     51 ~=? (calc2 "1 + (2 * 3) + (4 * (5 + 6))")
+            ,     46 ~=? (calc2 "2 * 3 + (4 * 5)")
+            ,   1445 ~=? (calc2 "5 + (8 * 3 + 9 + 3 * 4 * 3)")
+            , 669060 ~=? (calc2 "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))")
+            ,  23340 ~=? (calc2 "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2")
+            , TestCase $ do
+                input <- readFile "test/input202018.txt"
+                assertEqual "AoC 2020/18b" 276894767062189 (aoc202018b input)
             ]
           ]
