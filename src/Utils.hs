@@ -7,7 +7,7 @@ module Utils
 , bin2dec
 , insUpd
 , debug
-, (?)
+, (|>), (?)
 , Cond (..)
 ) where
 
@@ -37,6 +37,11 @@ insUpd store k val = case M.lookup k store of
 
 
 debug s a = trace (s ++ ":" ++ (show a)) a
+-- pipe operator
+infixl 0 |>
+(|>) :: a -> (a -> b) -> b
+x |> f = f x
+
 -- ternary operator
 data Cond a = a :? a
 
