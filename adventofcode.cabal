@@ -53,6 +53,7 @@ library
       AoC2020.Day22
       AoC2020.Day23
       AoC2020.Day24
+      AoC2021.Day01
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
@@ -85,6 +86,7 @@ test-suite adventofcode-test
   other-modules:
       Spec2015
       Spec2020
+      Spec2021
       Paths_adventofcode
   hs-source-dirs:
       test
