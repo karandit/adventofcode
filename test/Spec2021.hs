@@ -5,6 +5,7 @@ module Spec2021
 import Test.HUnit
 import AoC2021.Day01
 import AoC2021.Day02
+import AoC2021.Day03
 
 assertAoC day aocFunc sampleAns myAns =
              TestList
@@ -19,4 +20,5 @@ assertAoC day aocFunc sampleAns myAns =
 tests = TestList
           [ assertAoC "01" aoc202101 (7, 5) (1532, 1571)
           , assertAoC "02" aoc202102 (150, 900) (1635930, 1781819478)
+          , assertAoC "03" aoc202103 (198, 230) (3633500, 4550283)
           ]
