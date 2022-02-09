@@ -13,6 +13,7 @@ import AoC2021.Day07
 import AoC2021.Day08
 import AoC2021.Day09
 import AoC2021.Day10
+import AoC2021.Day11
 import AoC2021.Day13
 
 assertAoC day aocFunc sampleAns myAns = TestList
@@ -50,5 +51,6 @@ tests = TestList
     , assertAoC "08" aoc202108 (26, 61229) (554, 990964)
     , assertAoC "09" aoc202109 (15, 1134) (439, 990990)
     , assertAoC "10" aoc202110 (26397, 288957) (411471, 3122628974)
+    , assertAoC "11" aoc202111 (1656, 195) (1647, 348)
     , assertAoC "13" aoc202113 (17, day13BigO) (712, day13BLHFJPJF)
     ]
