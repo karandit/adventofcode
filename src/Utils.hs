@@ -1,5 +1,6 @@
 module Utils
 ( readInt
+, applyN
 , replace
 , freq
 , replaceNth
@@ -18,6 +19,8 @@ import Debug.Trace (trace)
 
 readInt :: String -> Int
 readInt = read
+
+applyN n f = foldr (.) id $ replicate n f
 
 replace fromC toC = map (\c -> if c == fromC then toC else c)
 
