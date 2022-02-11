@@ -3,9 +3,13 @@ module Spec2015
 ) where
 
 import Test.HUnit
+import AoCAsserts (assertAoC)
 import AoC2015.Day01
 import AoC2015.Day02
 import AoC2015.Day03
+import AoC2015.Day05
+
+assertAoC2015 = assertAoC "2015"
 
 tests = TestList
             [ testAoC201501a
@@ -14,6 +18,7 @@ tests = TestList
             , testAoC201502b
             , testAoC201503a
             , testAoC201503b
+            , assertAoC2015 "05" aoc201505 (2, 0) (255, 55)
             ]
 
 testAoC201501a = TestList

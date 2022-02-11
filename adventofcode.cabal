@@ -31,6 +31,7 @@ library
       AoC2015.Day01
       AoC2015.Day02
       AoC2015.Day03
+      AoC2015.Day05
       AoC2020.Day01
       AoC2020.Day02
       AoC2020.Day03
@@ -99,6 +100,7 @@ test-suite adventofcode-test
   type: exitcode-stdio-1.0
   main-is: AllSpec.hs
   other-modules:
+      AoCAsserts
       Spec2015
       Spec2020
       Spec2021
