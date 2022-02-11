@@ -18,6 +18,7 @@ import AoC2021.Day13
 import AoC2021.Day14
 import AoC2021.Day16
 import AoC2021.Day17
+import AoC2021.Day18
 
 assertAoC day aocFunc sampleAns myAns = TestList
     [ TestCase $ do
@@ -59,4 +60,5 @@ tests = TestList
     , assertAoC "14" aoc202114 (1588, 2188189693529) (2549, 2516901104210)
     , assertAoC "16" aoc202116 (31, 54) (993, 144595909277)
     , assertAoC "17" aoc202117 (45, 112) (12561, 3785)
+    , assertAoC "18" aoc202118 (4140, 3993) (4173, 4706)
     ]
