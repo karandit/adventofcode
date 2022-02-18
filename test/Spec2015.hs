@@ -22,14 +22,14 @@ tests = TestList
 
             , 1 ~=? (aoc201501b ")")
             , 5 ~=? (aoc201501b "()())")
-            , assertAoC2015 "01" aoc201501 (138, 1771) (138, 1771) -- sample is the same as the real input
+            , assertAoC2015 "01" aoc201501 [(138, 1771)]
 
             , 58 ~=? (aoc201502a [2,3,4])
             , 43 ~=? (aoc201502a [1,1,10])
 
             , 34 ~=? (aoc201502b [2,3,4])
             , 14 ~=? (aoc201502b [1,1,10])
-            , assertAoC2015 "02" aoc201502 (1586300, 3737498) (1586300, 3737498) -- sample is the same as the real input
+            , assertAoC2015 "02" aoc201502 [(1586300, 3737498)]
 
             , 2 ~=? (aoc201503a ">")
             , 4 ~=? (aoc201503a "^>v<")
@@ -38,7 +38,7 @@ tests = TestList
             , 3 ~=? (aoc201503b "^v")
             , 3 ~=? (aoc201503b "^>v<")
             , 11 ~=? (aoc201503b "^v^v^v^v^v")
-            , assertAoC2015 "03" aoc201503 (2081, 2341) (2081, 2341) -- sample is the same as the real input
-            , assertAoC2015 "05" aoc201505 (2, 0) (255, 55)
-            , assertAoC2015 "06" aoc201506 (184127, 348647) (377891, 14110788) -- too slow & the sample is just the made by me
+            , assertAoC2015 "03" aoc201503 [(2081, 2341)]
+            , assertAoC2015 "05" aoc201505 [(255, 55), (2, 0)]
+            , assertAoC2015 "06" aoc201506 [(377891, 14110788)] -- too slow
             ]
