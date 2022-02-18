@@ -1,6 +1,5 @@
 module AoC2020.Day05
-( aoc202005a
-, aoc202005b
+( aoc202005
 , seatId
 ) where
 
@@ -13,10 +12,10 @@ seatId l =
     colId = binToDec 'R' $ drop 7 l
   in  rowId * 8 + colId
 
-aoc202005a input =
-  maximum $ map seatId $ lines input
+aoc202005 input = (part1, part2) where
+  seatIds = map seatId $ lines input
+  part1 = maximum $ seatIds
 
-aoc202005b input =
-  let seatIds = sort $ map seatId $ lines input
-      firstSeatId = head seatIds
-  in maybe 0 fst $ find (\(i,v) -> i /= v) $ zip [firstSeatId..] seatIds
+  sortedSeatIds = sort $ seatIds
+  firstSeatId = head sortedSeatIds
+  part2 = maybe 0 fst $ find (\(i,v) -> i /= v) $ zip [firstSeatId..] sortedSeatIds

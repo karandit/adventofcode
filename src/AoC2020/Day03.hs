@@ -1,6 +1,5 @@
 module AoC2020.Day03 
-( aoc202003a
-, aoc202003b
+( aoc202003
 ) where
 
 import Utils
@@ -12,16 +11,13 @@ countTrees left down =
         else (col, row + 1, count)
   in foldl slope (left, down, 0)
 
-aoc202003a input =
-  let rows = tail $ lines input
-      (_, _, res3) = countTrees 3 1 rows
-  in res3
+aoc202003 input = (part1, part2) where
+  rows = tail $ lines input
+  (_, _, res3) = countTrees 3 1 rows
+  part1 = res3
 
-aoc202003b input =
-  let rows = tail $ lines input
-      (_, _, res1) = countTrees 1 1 $ rows
-      (_, _, res3) = countTrees 3 1 $ rows
-      (_, _, res5) = countTrees 5 1 $ rows
-      (_, _, res7) = countTrees 7 1 $ rows
-      (_, _, res2) = countTrees 1 2 $ tail rows
-  in res1 * res3 * res5 * res7 * res2
+  (_, _, res1) = countTrees 1 1 $ rows
+  (_, _, res5) = countTrees 5 1 $ rows
+  (_, _, res7) = countTrees 7 1 $ rows
+  (_, _, res2) = countTrees 1 2 $ tail rows
+  part2 = res1 * res3 * res5 * res7 * res2
