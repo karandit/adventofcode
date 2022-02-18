@@ -8,6 +8,7 @@ import AoC2015.Day01
 import AoC2015.Day02
 import AoC2015.Day03
 import AoC2015.Day05
+import AoC2015.Day06
 
 assertAoC2015 = assertAoC "2015"
 
@@ -19,6 +20,7 @@ tests = TestList
             , testAoC201503a
             , testAoC201503b
             , assertAoC2015 "05" aoc201505 (2, 0) (255, 55)
+            , assertAoC2015 "06" aoc201506 (184127, 348647) (377891, 14110788) -- too slow & the sample is just the made by me
             ]
 
 testAoC201501a = TestList

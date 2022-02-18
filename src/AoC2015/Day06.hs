@@ -2,40 +2,53 @@ module AoC2015.Day06
 ( aoc201506
 ) where
 
-import qualified Data.Map as M
-import Data.List (foldl')
+import Data.Array.MArray (newArray, readArray, writeArray, getElems)
+import Data.Array.ST (runSTUArray, STUArray)
+import qualified Data.Array.IArray as IA
+import Control.Monad
+import Control.Monad.ST (ST, runST)
+
+import Data.Foldable (for_)
 import Data.List.Utils (split)
 import Utils (readInt, (|>))
 
-main :: IO ()
-main = do 
-    input <- readFile "inputs/2015/day06.txt"
-    putStrLn $ show $ aoc201506 input
-
 data LightInstr = TurnOn | TurnOff | Toggle
+
+rangeXY (aX, aY) (bX, bY) = [(x,y) | x <- [aX..bX], y <- [aY..bY]]
+{-# INLINE rangeXY #-}
 
 aoc201506 input = (part1, part2) where
     inputs = input |> lines |> map parseInstr
     parseInstr ('t':'u':'r':'n':' ':'o':'n':' ':s) = parseCoords TurnOn s
     parseInstr ('t':'u':'r':'n':' ':'o':'f':'f':' ':s) = parseCoords TurnOff s
     parseInstr ('t':'o':'g':'g':'l':'e':' ':s) = parseCoords Toggle s
-    parseCoords state s = let [aXY, bXY] = s |> split " through "
+    parseCoords instr s = let [aXY, bXY] = s |> split " through "
                               [aX, aY] = aXY |> split "," |> map readInt
                               [bX, bY] = bXY |> split "," |> map readInt
-                          in (state, (aX, aY), (bX, bY))
+                          in (instr, (aX, aY), (bX, bY))
 
-    initGrid initV= [((x, y), initV) | x <- [0..999], y <- [0..999]] |> M.fromDistinctAscList
-    consumeInstr f grid (state, (aX, aY), (bX, bY)) = [(x,y)| x<-[aX..bX], y<-[aY..bY]]
-                        |> foldl' (\accGrid xy -> M.adjust (f state) xy accGrid) grid
+    solveBy :: (LightInstr -> (Bool,  Int -> Int)) -> Int
+    solveBy f = runST $ do
+                          arr <- newGrid
+                          for_ inputs (\(instr, (aX, aY), (bX, bY)) ->
+                                 for_ (rangeXY (aX,aY)(bX,bY)) (\xy ->  do
+                                                let (needsRead, transform) = f instr
+                                                v <- if needsRead then readArray arr xy else pure 0
+                                                writeArray arr xy (transform v)
+                                                )
+                            )
+                          es <- getElems arr
+                          return $! sum es
 
-    applyInstr initV f = inputs |> foldl' (consumeInstr f) (initGrid initV)
+    newGrid :: ST s (STUArray s (Int, Int) Int)
+    newGrid = newArray ((0, 0), (999, 999)) 0
 
-    instr1 TurnOn = const True
-    instr1 TurnOff = const False
-    instr1 Toggle = not
-    part1 = applyInstr False instr1 |> M.elems |> filter id |> length
+    rule1 TurnOn  = (False, \_ -> 1)
+    rule1 TurnOff = (False, \_ -> 0)
+    rule1 Toggle  = (True, \x -> 1 - x)
+    part1 = solveBy rule1
 
-    instr2 TurnOn = \x -> x + 1
-    instr2 TurnOff = \x -> (x - 1) |> max 0
-    instr2 Toggle = \x -> x + 2
-    part2 = applyInstr 0 instr2 |> M.elems |> sum
+    rule2 TurnOn  = (True, \x -> x + 1)
+    rule2 TurnOff = (True, \x -> (x - 1) |> max 0)
+    rule2 Toggle  = (True, \x -> x + 2)
+    part2 = solveBy rule2
