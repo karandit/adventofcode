@@ -13,68 +13,32 @@ import AoC2015.Day06
 assertAoC2015 = assertAoC "2015"
 
 tests = TestList
-            [ testAoC201501a
-            , testAoC201501b
-            , testAoC201502a
-            , testAoC201502b
-            , testAoC201503a
-            , testAoC201503b
-            , assertAoC2015 "05" aoc201505 (2, 0) (255, 55)
-            , assertAoC2015 "06" aoc201506 (184127, 348647) (377891, 14110788) -- too slow & the sample is just the made by me
-            ]
-
-testAoC201501a = TestList
             [ 0 ~=? (aoc201501a "(())")
             , 0 ~=? (aoc201501a "()()")
             , 3 ~=? (aoc201501a "(()(()(")
             , 3 ~=? (aoc201501a "))(((((")
             , (-1)~=? (aoc201501a "))(")
             , (-3)~=? (aoc201501a ")())())")
-            , TestCase $ do
-                input <- readFile "test/input201501.txt"
-                assertEqual "AoC 2015/01a" 138 (aoc201501a input)
-            ]
 
-testAoC201501b = TestList
-            [ 1 ~=? (aoc201501b ")")
+            , 1 ~=? (aoc201501b ")")
             , 5 ~=? (aoc201501b "()())")
-            , TestCase $ do
-                input <- readFile "test/input201501.txt"
-                assertEqual "AoC 2015/01b" 1771 (aoc201501b input)
-            ]
+            , assertAoC2015 "01" aoc201501 (138, 1771) (138, 1771) -- sample is the same as the real input
 
-testAoC201502a = TestList
-            [ 58 ~=? (aoc201502a [2,3,4])
+            , 58 ~=? (aoc201502a [2,3,4])
             , 43 ~=? (aoc201502a [1,1,10])
-            , TestCase $ do
-                input <- readFile "test/input201502.txt"
-                let triples = parseInput201502 input
-                assertEqual "AoC 2015/02a" 1586300 (sum $ map aoc201502a triples)
-            ]
 
-testAoC201502b = TestList
-            [ 34 ~=? (aoc201502b [2,3,4])
+            , 34 ~=? (aoc201502b [2,3,4])
             , 14 ~=? (aoc201502b [1,1,10])
-            , TestCase $ do
-                input <- readFile "test/input201502.txt"
-                let triples = parseInput201502 input
-                assertEqual "AoC 2015/02b" 3737498 (sum $ map aoc201502b triples)
-            ]
+            , assertAoC2015 "02" aoc201502 (1586300, 3737498) (1586300, 3737498) -- sample is the same as the real input
 
-testAoC201503a = TestList
-            [ 2 ~=? (aoc201503a ">")
+            , 2 ~=? (aoc201503a ">")
             , 4 ~=? (aoc201503a "^>v<")
             , 2 ~=? (aoc201503a "^v^v^v^v^v")
-            , TestCase $ do
-                input <- readFile "test/input201503.txt"
-                assertEqual "AoC 2015/03a" 2081 (aoc201503a input)
-            ]
 
-testAoC201503b = TestList
-            [ 3 ~=? (aoc201503b "^v")
+            , 3 ~=? (aoc201503b "^v")
             , 3 ~=? (aoc201503b "^>v<")
             , 11 ~=? (aoc201503b "^v^v^v^v^v")
-            , TestCase $ do
-                input <- readFile "test/input201503.txt"
-                assertEqual "AoC 2015/03b" 2341 (aoc201503b input)
+            , assertAoC2015 "03" aoc201503 (2081, 2341) (2081, 2341) -- sample is the same as the real input
+            , assertAoC2015 "05" aoc201505 (2, 0) (255, 55)
+            , assertAoC2015 "06" aoc201506 (184127, 348647) (377891, 14110788) -- too slow & the sample is just the made by me
             ]

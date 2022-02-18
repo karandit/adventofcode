@@ -1,8 +1,8 @@
 module AoC2015.Day02
 ( aoc201502a
 , aoc201502b
-, parseInput201502)
-where
+, aoc201502
+) where
 
 import Utils
 
@@ -17,3 +17,8 @@ aoc201502a [a,b,c] =
 aoc201502b ns@[a,b,c] =
   let perimeters = [a+b, a+c, b+c]
   in 2 * (minimum perimeters) + product ns
+
+aoc201502 input = (part1, part2) where
+  triples = parseInput201502 input
+  part1 = sum $ map aoc201502a triples
+  part2 = sum $ map aoc201502b triples

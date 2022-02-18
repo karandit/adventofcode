@@ -1,7 +1,8 @@
 module AoC2015.Day03
 ( aoc201503a
-, aoc201503b )
-where
+, aoc201503b
+, aoc201503
+) where
 
 import qualified Data.Set as Set
 
@@ -24,3 +25,5 @@ aoc201503b input = let
                         nextR = if not isS then stepPos posR c else posR
                     in (not isS, nextS, nextR)) (True, initialPos, initialPos) input
                in Set.size $ Set.union (snd resS) (snd resR)
+
+aoc201503 input = (aoc201503a input, aoc201503b input)
