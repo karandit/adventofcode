@@ -1,6 +1,5 @@
 module AoC2020.Day23
-( aoc202023a
-, aoc202023b
+( aoc202023
 ) where
 
 import           Control.Monad.Primitive        (PrimMonad, PrimState)
@@ -108,15 +107,7 @@ backToCanonical i v acc =
         --x2 <- MV.read v x1
         --pure $ show $ (x1+1) * (x2+1)
 
-aoc202023a :: String -> String
-aoc202023a input = solve (\nrs -> head nrs) (\nrs -> length nrs) 100 True input
-
-aoc202023b :: String -> String
-aoc202023b input = solve (\_   -> 9)        (\_   -> 1000000)    10000000 False input
-
-main :: IO ()
-main = do
-        print $ aoc202023a "389125467"
-        print $ aoc202023a "712643589"
-        print $ aoc202023b "389125467"
-        print $ aoc202023b "712643589"
+aoc202023 :: String -> (String, String)
+aoc202023 input = (part1, part2) where
+  part1 = solve (\nrs -> head nrs) (\nrs -> length nrs) 100 True input
+  part2 = solve (\_   -> 9)        (\_   -> 1000000)    10000000 False input

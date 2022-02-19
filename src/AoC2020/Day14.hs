@@ -1,4 +1,6 @@
-module AoC2020.Day14 where
+module AoC2020.Day14
+( aoc202014
+) where
 
 import qualified Data.Map as M
 import Utils (readInt, bin2dec, dec2bin, insUpd)
@@ -13,8 +15,7 @@ readInstrs input =
 
 pad0 x =  replicate (36 - length x) '0' ++ x
 
-------
-part1 mask store mem val = insUpd store mem $ map(\(m,v) -> if m /= 'X' then m else v) $ zip mask val
+rule1 mask store mem val = insUpd store mem $ map(\(m,v) -> if m /= 'X' then m else v) $ zip mask val
 
 genMems mask mem = 
    map (reverse)
@@ -26,12 +27,13 @@ genMems mask mem =
     ) [""] 
     $ zip mask mem
 
-part2 mask store mem val = foldl (\ss newmem -> insUpd ss newmem val) store $ genMems mask mem
+rule2 mask store mem val = foldl (\ss newmem -> insUpd ss newmem val) store $ genMems mask mem
 
 solution f = 
   let foldInstr (_,   store) (Mask mask)        = (mask, store)
       foldInstr (mask,store) (Write (mem, val)) = (mask, f mask store mem val)
   in sum . map bin2dec . M.elems . snd . foldl foldInstr ("", M.empty) .readInstrs
 
-aoc202014a = solution part1
-aoc202014b = solution part2
+aoc202014 input = (part1, part2) where
+  part1 = solution rule1 input
+  part2 = solution rule2 input

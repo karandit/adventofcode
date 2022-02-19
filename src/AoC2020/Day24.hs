@@ -1,6 +1,5 @@
 module AoC2020.Day24
-( aoc202024a
-, aoc202024b
+( aoc202024
 ) where
 
 import qualified Data.Set as S
@@ -50,5 +49,6 @@ genFloor blackTiles =
 
 readBlackTiles input = input |> lines |> map (parseTile (0, 0)) |> sort |> group |> filter (\gr -> length gr `mod` 2 /= 0) |> map (\gr -> head gr)
 
-aoc202024a input = input |> readBlackTiles |> length
-aoc202024b input = input |> readBlackTiles |> S.fromList |> nextFloor 100 |> S.size
+aoc202024 input = (part1, part2) where
+  part1 = input |> readBlackTiles |> length
+  part2 = input |> readBlackTiles |> S.fromList |> nextFloor 100 |> S.size

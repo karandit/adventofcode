@@ -1,6 +1,5 @@
 module AoC2020.Day16
-( aoc202016a
-, aoc202016b
+( aoc202016
 ) where
 
 import Data.String.Utils (startswith)
@@ -69,3 +68,5 @@ aoc202016b input =
       foundMappings = foldl validateMapping mappings $ validTickets
       solution = filter (\((ruleName,_), _) -> startswith "departure" ruleName) $ shrinkMappings foundMappings
   in product . map ((!!) myticket . head . snd) $ solution
+
+aoc202016 input = (aoc202016a input, aoc202016b input)

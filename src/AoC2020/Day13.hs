@@ -1,6 +1,5 @@
 module AoC2020.Day13
-( aoc202013a
-, aoc202013b
+( aoc202013
 ) where
 
 import Utils (readInt, replace)
@@ -35,3 +34,5 @@ aoc202013b input =
       deps = map (\(idx, ss) -> (idx, readInt ss)) . filter ((/=) "x" .snd) . zip [0..] $ busIds
       sorted = map (\(id,x) -> ((x-id) `mod` x, x)) . reverse . sortBy (compare `on` snd) $ deps
   in sieve sorted
+
+aoc202013 input = (aoc202013a input, aoc202013b input)

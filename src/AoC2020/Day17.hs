@@ -1,6 +1,5 @@
 module AoC2020.Day17
-( aoc202017a
-, aoc202017b
+( aoc202017
 ) where
 
 import Data.Foldable (foldl')
@@ -49,5 +48,6 @@ solution shiftZ gridZ origoZ input =
         step = stepGen shiftZ deltaZ
     in S.size $ step $ step $ step $ step $ step $ step $ cubes
 
-aoc202017a = solution shift3D grid3D 0
-aoc202017b = solution shift4D grid4D (0, 0)
+aoc202017 input = (part1 input, part2 input) where
+  part1 = solution shift3D grid3D 0
+  part2 = solution shift4D grid4D (0, 0)

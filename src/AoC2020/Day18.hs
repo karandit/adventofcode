@@ -1,6 +1,5 @@
 module AoC2020.Day18
-( aoc202018a
-, aoc202018b
+( aoc202018
 , calc1
 , calc2
 ) where
@@ -55,5 +54,6 @@ precedence2 '*' = 1
 calc1 = calc precedence1
 calc2 = calc precedence2
 
-aoc202018a = sum . map calc1 . lines
-aoc202018b = sum . map calc2 . lines
+aoc202018 input = (part1, part2) where
+  part1 = sum . map calc1 . lines $ input
+  part2 = sum . map calc2 . lines $ input

@@ -1,6 +1,5 @@
 module AoC2020.Day22
-( aoc202022a
-, aoc202022b
+( aoc202022
 ) where
 
 import Data.List.Utils (split)
@@ -40,5 +39,6 @@ combatRec memo1 memo2 decks@(d1@(x1:xs), d2@(y1:ys)) =
 
 calcCards cards = cards |> reverse |> zipWith (*) [1..] |> sum
 
-aoc202022a input = input |> parseDecks |> combatSimple |> calcCards
-aoc202022b input = input |> parseDecks |> combatRecurs |> calcCards
+aoc202022 input = (part1, part2) where
+  part1 = input |> parseDecks |> combatSimple |> calcCards
+  part2 = input |> parseDecks |> combatRecurs |> calcCards

@@ -1,6 +1,5 @@
 module AoC2020.Day21
-( aoc202021a
-, aoc202021b
+( aoc202021
 ) where
 
 import qualified Data.Set as S
@@ -63,3 +62,5 @@ aoc202021a input =
   in foods |> map (\food -> S.difference (food |> fst |> S.fromList) ingrNoAllerg |> S.size) |> sum
 
 aoc202021b input = input |> getFoodsAndFindings |> snd |> sortBy (compare `on` fst) |> map snd |> nub |> intercalate ","
+
+aoc202021 input = (aoc202021a input, aoc202021b input)
