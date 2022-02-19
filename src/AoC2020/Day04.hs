@@ -1,6 +1,5 @@
 module AoC2020.Day04
-( aoc202004a
-, aoc202004b
+( aoc202004
 ) where
 
 import qualified Data.Maybe as Maybe
@@ -42,5 +41,6 @@ solution pred input =
       res = foldl countPass (M.empty, 0) $ lines input
   in snd $ countPass res ""
 
-aoc202004a = solution fieldsPresent
-aoc202004b = solution fieldsPresentAndValid
+aoc202004 input = (part1, part2) where
+  part1 = solution fieldsPresent input
+  part2 = solution fieldsPresentAndValid input

@@ -27,6 +27,7 @@ import AoC2020.Day22
 import AoC2020.Day23
 import AoC2020.Day24
 
+assertAoC2020 :: (Eq a, Show a) => String -> (String -> a) -> [a] -> Test
 assertAoC2020 = assertAoC "2020"
 
 tests = TestList
@@ -45,95 +46,31 @@ tests = TestList
           -- Day03
           , assertAoC2020 "03" aoc202003 [(191, 1478615040), (7, 336)]
           -- Day04
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202004_sample.txt"
-                assertEqual "AoC 2020/04a sample" 2 (aoc202004a input)
-           , TestCase $ do
-                input <- readFile "test/input202004.txt"
-                assertEqual "AoC 2020/04a" 222 (aoc202004a input)
-            ]
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202004_invalid.txt"
-                assertEqual "AoC 2020/04b invalid" 0 (aoc202004b input)
-            , TestCase $ do
-                input <- readFile "test/input202004_valid.txt"
-                assertEqual "AoC 2020/04b valid" 4 (aoc202004b input)
-            , TestCase $ do
-                input <- readFile "test/input202004.txt"
-                assertEqual "AoC 2020/04b" 140 (aoc202004b input)
-            ]
+          , assertAoC2020 "04_sample" (fst . aoc202004) [2]
+          , assertAoC2020 "04_invalid" (snd . aoc202004) [0]
+          , assertAoC2020 "04_valid" (snd . aoc202004) [4]
+          , assertAoC2020 "04" aoc202004 [(222, 140)]
           -- Day05
           , 357 ~=? (seatId "FBFBBFFRLR")
           , assertAoC2020 "05" aoc202005 [(880, 731)]
           -- Day06
           , assertAoC2020 "06" aoc202006 [(6683, 3122), (11, 6)]
           -- Day07
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202007_sample1.txt"
-                assertEqual "AoC 2020/07a" 4 (aoc202007a input)
-            , TestCase $ do
-                input <- readFile "test/input202007.txt"
-                assertEqual "AoC 2020/07a" 179 (aoc202007a input)
-            , TestCase $ do
-                input <- readFile "test/input202007_sample2.txt"
-                assertEqual "AoC 2020/07b" 126 (aoc202007b input)
-            , TestCase $ do
-                input <- readFile "test/input202007.txt"
-                assertEqual "AoC 2020/07b" 18925 (aoc202007b input)
-            ]
+          , assertAoC2020 "07" aoc202007 [(179, 18925)]
+          , assertAoC2020 "07_sample1" (fst . aoc202007) [4]
+          , assertAoC2020 "07_sample2" (snd . aoc202007) [126]
           -- Day08
           , assertAoC2020 "08" aoc202008 [(2014, 2251), (5, 8)]
           -- Day09
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202009_sample.txt"
-                assertEqual "AoC 2020/09a" 127 (aoc202009a 5 input)
-            , TestCase $ do
-                input <- readFile "test/input202009.txt"
-                assertEqual "AoC 2020/09a" 1639024365 (aoc202009a 25 input)
-            , TestCase $ do
-                input <- readFile "test/input202009_sample.txt"
-                assertEqual "AoC 2020/09b" 62 (aoc202009b 5 input)
-            , TestCase $ do
-                input <- readFile "test/input202009.txt"
-                assertEqual "AoC 2020/09b" 219202240 (aoc202009b 25 input)
-            ]
+          , assertAoC2020 "09_sample" (aoc202009 5) [(127, 62)]
+          , assertAoC2020 "09" (aoc202009 25) [(1639024365, 219202240)]
           -- Day10
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202010_sample1.txt"
-                assertEqual "AoC 2020/10a sample" 35 (aoc202010a input)
-            , TestCase $ do
-                input <- readFile "test/input202010.txt"
-                assertEqual "AoC 2020/10a" 1625 (aoc202010a input)
-            , TestCase $ do
-                input <- readFile "test/input202010_sample1.txt"
-                assertEqual "AoC 2020/10a sample" 8 (aoc202010b input)
-            , TestCase $ do
-                input <- readFile "test/input202010_sample2.txt"
-                assertEqual "AoC 2020/10a sample long" 19208 (aoc202010b input)
-            , TestCase $ do
-                input <- readFile "test/input202010.txt"
-                assertEqual "AoC 2020/10b" 3100448333024 (aoc202010b input)
-            ]
+          , assertAoC2020 "10_sample1" aoc202010 [(35, 8)]
+          , assertAoC2020 "10_sample2" (snd . aoc202010) [19208]
+          , assertAoC2020 "10" aoc202010 [(1625, 3100448333024)]
           -- Day11
-          , TestList
-            [ TestCase $ do
-                input <- readFile "test/input202011_sample.txt"
-                assertEqual "AoC 2020/11a sample" 37 (aoc202011a input)
-            , TestCase $ do
-                input <- readFile "test/input202011.txt"
-                assertEqual "AoC 2020/11a" 2247 (aoc202011a input)
-            , TestCase $ do
-                input <- readFile "test/input202011_sample.txt"
-                assertEqual "AoC 2020/11b sample" 26 (aoc202011b input)
-            , TestCase $ do
-                input <- readFile "test/input202011.txt"
-                assertEqual "AoC 2020/11b" 2011 (aoc202011b input)
-            ]
+          , assertAoC2020 "11_sample" aoc202011 [(37, 26)]
+          , assertAoC2020 "11" aoc202011 [(2247, 2011)]
           -- Day12
           , TestList
             [ TestCase $ do

@@ -1,6 +1,5 @@
 module AoC2020.Day11
-( aoc202011a
-, aoc202011b
+( aoc202011
 ) where
 
 import qualified Data.Map as M
@@ -56,5 +55,6 @@ stepInf neightbours toler store =
     let nextStore = step neightbours toler store
     in if nextStore == store then occupied store else stepInf neightbours toler nextStore
 
-aoc202011a input = stepInf nrNeighboursPart1 4 $ readSeats input
-aoc202011b input = stepInf nrNeighboursPart2 5 $ readSeats input
+aoc202011 input = (part1, part2) where
+  part1 = stepInf nrNeighboursPart1 4 $ readSeats input
+  part2 = stepInf nrNeighboursPart2 5 $ readSeats input

@@ -1,15 +1,14 @@
 module AoC2020.Day09
-( aoc202009a
-, aoc202009b
+( aoc202009
 ) where
 
 import Data.List (inits, tails, find)
 import Utils (readInt)
 
-aoc202009a preamble input =
-    aoc202009a' preamble $ map readInt $ lines input
+part1 preamble input =
+    part1' preamble $ map readInt $ lines input
 
-aoc202009a' preamble nums =
+part1' preamble nums =
     let isNotPairSum xs goal= null $ [x*y | x:ys <- tails xs, y <- ys, x + y == goal]
 
         findNotPairSum acc@(pre, sol) n = case sol of
@@ -18,9 +17,9 @@ aoc202009a' preamble nums =
 
     in maybe 0 id $ snd $ foldl findNotPairSum (take preamble nums, Nothing) $ drop preamble nums
 
-aoc202009b preamble input =
+part2 preamble input =
     let nums = map readInt $ lines input
-        invalid = aoc202009a' preamble nums
+        invalid = part1' preamble nums
 
         findContiguous xs = case find ((==) invalid . sum) $ inits xs of
           Just found -> found
@@ -28,3 +27,5 @@ aoc202009b preamble input =
 
         contiguous = findContiguous nums
     in maximum contiguous + minimum contiguous 
+
+aoc202009 preamble input = (part1 preamble input, part2 preamble input)

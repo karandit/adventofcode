@@ -4,6 +4,7 @@ module AoCAsserts
 
 import Test.HUnit
 
+assertAoC :: (Eq a, Show a) => String -> String -> (String -> a) -> [a] -> Test
 assertAoC year day aocFunc answers =
     let suffixes = ["", "_sample"]
 

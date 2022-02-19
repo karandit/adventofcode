@@ -1,6 +1,5 @@
 module AoC2020.Day07
-( aoc202007a
-, aoc202007b
+( aoc202007
 ) where
 
 import qualified Data.Map as M
@@ -31,8 +30,8 @@ weight bagName store =
   maybe 0 (\innerBags -> 1 + (sum $ map (\(n, w) -> w * weight n store) innerBags))
   $ M.lookup bagName store
 
-aoc202007a input =
-     let store = M.map (map fst) $ readBags input
-     in length $ filter (canContain store) $ M.keys store
-
-aoc202007b = (+) (-1) . weight shiny . readBags
+aoc202007 input = (part1, part2) where
+  part1 =
+    let store = M.map (map fst) $ readBags input
+    in length $ filter (canContain store) $ M.keys store
+  part2 = (+) (-1) . weight shiny . readBags $ input
