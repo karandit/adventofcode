@@ -22,6 +22,7 @@ import AoC2020.Day15
 import AoC2020.Day16
 import AoC2020.Day17
 import AoC2020.Day18
+import AoC2020.Day19
 import AoC2020.Day21
 import AoC2020.Day22
 import AoC2020.Day23
@@ -71,14 +72,14 @@ tests = TestList
           , assertAoC2020 "14_sample1" (fst . aoc202014) 165                    -- Day14
           , assertAoC2020 "14_sample2" (snd . aoc202014) 208
           , assertAoC2020 "14" aoc202014 (13496669152158, 3278997609887)
-          ,    1 ~=? (aoc202015a 2020 [1,3,2])                                  -- Day15
+          ,    1 ~=? (aoc202015a 2020 [1,3,2])                                  -- Day15 !! part2 is slow, it was implemented in Go
           ,   10 ~=? (aoc202015a 2020 [2,1,3])
           ,   27 ~=? (aoc202015a 2020 [1,2,3])
           ,   78 ~=? (aoc202015a 2020 [2,3,1])
           ,  438 ~=? (aoc202015a 2020 [3,2,1])
           , 1836 ~=? (aoc202015a 2020 [3,1,2])
           , 1259 ~=? (aoc202015a 2020 [15,5,1,4,7,0])
-          --,  689 ~=? (aoc202015b 30000000 [15,5,1,4,7,0]) -- TODO it is slow, see Go impl
+          --,  689 ~=? (aoc202015b 30000000 [15,5,1,4,7,0])
           , assertAoC2020 "16_invalid" (fst . aoc202016) 71                     -- Day16
           , assertAoC2020 "16" aoc202016 (23044, 3765150732757)
           , assertAoC2020 "17_sample" aoc202017 (112, 848)                      -- Day17
@@ -94,6 +95,9 @@ tests = TestList
           , 669060 ~=? (calc2 "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))")
           ,  23340 ~=? (calc2 "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2")
           , assertAoC2020 "18" aoc202018 (86311597203806, 276894767062189)
+          , assertAoC2020 "19_sample1" aoc202019 "MISSING"                      -- Day19 !! part2 is missing
+          , assertAoC2020 "19_sample2" aoc202019 "MISSING"
+          , assertAoC2020 "19" aoc202019 "MISSING"
           , assertAoC2020 "21_sample" aoc202021 (5, "mxmxvkd,sqjhc,fvjkl")      -- Day21
           , assertAoC2020 "21" aoc202021 (2485, "bqkndvb,zmb,bmrmhm,snhrpv,vflms,bqtvr,qzkjrtl,rkkrx")
           , assertAoC2020 "22_sample" aoc202022 (306, 291)                      -- Day22
