@@ -26,6 +26,7 @@ import AoC2020.Day21
 import AoC2020.Day22
 import AoC2020.Day23
 import AoC2020.Day24
+import AoC2020.Day25
 
 assertAoC2020 :: (Eq a, Show a) => String -> (String -> a) -> a -> Test
 assertAoC2020 = assertAoC "2020"
@@ -101,4 +102,6 @@ tests = TestList
           , ("29385746", "680435423892") ~=? (aoc202023 "712643589")
           , assertAoC2020 "24_sample" aoc202024 (10, 2208)                      -- Day24
           , assertAoC2020 "24" aoc202024 (232, 3519)
+          , assertAoC2020 "25_sample" aoc202025 14897079                        -- Day25
+          , assertAoC2020 "25" aoc202025 12285001
           ]
