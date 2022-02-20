@@ -6,6 +6,7 @@ module Utils
 , replaceNth
 , dec2bin
 , bin2dec
+, bin2decBy
 , insUpd
 , debug
 , (|>), (?)
@@ -33,6 +34,8 @@ dec2bin = reverse . map Char.intToDigit . unfoldr
     (\x -> if x==0 then Nothing else Just(rem x 2, div x 2))
 
 bin2dec = sum . map (2^) . findIndices (=='1') . reverse
+
+bin2decBy upper = sum . map (2^) . findIndices (==upper) . reverse
 
 insUpd store k val = case M.lookup k store of
   Just _  -> M.update (\_ -> Just val) k store

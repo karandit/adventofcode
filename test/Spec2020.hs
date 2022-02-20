@@ -23,6 +23,7 @@ import AoC2020.Day16
 import AoC2020.Day17
 import AoC2020.Day18
 import AoC2020.Day19
+import AoC2020.Day20
 import AoC2020.Day21
 import AoC2020.Day22
 import AoC2020.Day23
@@ -98,6 +99,8 @@ tests = TestList
           , assertAoC2020 "19_sample1" aoc202019 "MISSING"                      -- Day19 !! part2 is missing
           , assertAoC2020 "19_sample2" aoc202019 "MISSING"
           , assertAoC2020 "19" aoc202019 "MISSING"
+          , assertAoC2020 "20_sample" aoc202020 (20899048083289, "MISSING")     -- Day20 !! part2 is missing
+          , assertAoC2020 "20" aoc202020 (104831106565027, "MISSING")
           , assertAoC2020 "21_sample" aoc202021 (5, "mxmxvkd,sqjhc,fvjkl")      -- Day21
           , assertAoC2020 "21" aoc202021 (2485, "bqkndvb,zmb,bmrmhm,snhrpv,vflms,bqtvr,qzkjrtl,rkkrx")
           , assertAoC2020 "22_sample" aoc202022 (306, 291)                      -- Day22
