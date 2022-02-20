@@ -3,6 +3,7 @@ module Spec2021
 ) where
 
 import Test.HUnit
+import AoCAsserts (assertAoC)
 import AoC2021.Day01
 import AoC2021.Day02
 import AoC2021.Day03
@@ -20,14 +21,8 @@ import AoC2021.Day16
 import AoC2021.Day17
 import AoC2021.Day18
 
-assertAoC day aocFunc sampleAns myAns = TestList
-    [ TestCase $ do
-        input <- readFile ("inputs/2021/day" ++ day ++ "_sample.txt")
-        assertEqual ("AoC 2021/" ++ day ++ " sample") sampleAns (aocFunc input)
-    , TestCase $ do
-        input <- readFile ("inputs/2021/day" ++ day ++ ".txt")
-        assertEqual ("AoC 2021/" ++ day) myAns (aocFunc input)
-    ]
+assertAoC2021 :: (Eq a, Show a) => String -> (String -> a) -> a -> Test
+assertAoC2021 = assertAoC "2021"
 
 day13BigO = [
     "xxxxx",
@@ -45,20 +40,36 @@ day13BLHFJPJF = [
     "xxx  xxxx x  x x     xx  x     xx  x   "]
 
 tests = TestList
-    [ assertAoC "01" aoc202101 (7, 5) (1532, 1571)
-    , assertAoC "02" aoc202102 (150, 900) (1635930, 1781819478)
-    , assertAoC "03" aoc202103 (198, 230) (3633500, 4550283)
-    , assertAoC "04" aoc202104 (4512, 1924) (33462, 30070)
-    , assertAoC "05" aoc202105 (5, 12) (4745, 18442)
-    , assertAoC "06" aoc202106 (5934, 26984457539) (356190, 1617359101538)
-    , assertAoC "07" aoc202107 (37, 168) (344735, 96798233)
-    , assertAoC "08" aoc202108 (26, 61229) (554, 990964)
-    , assertAoC "09" aoc202109 (15, 1134) (439, 900900)
-    , assertAoC "10" aoc202110 (26397, 288957) (411471, 3122628974)
-    , assertAoC "11" aoc202111 (1656, 195) (1647, 348)
-    , assertAoC "13" aoc202113 (17, day13BigO) (712, day13BLHFJPJF)
-    , assertAoC "14" aoc202114 (1588, 2188189693529) (2549, 2516901104210)
-    , assertAoC "16" aoc202116 (31, 54) (993, 144595909277)
-    , assertAoC "17" aoc202117 (45, 112) (12561, 3785)
-    , assertAoC "18" aoc202118 (4140, 3993) (4173, 4706)
+    [ assertAoC2021 "01_sample" aoc202101 (7, 5)
+    , assertAoC2021 "01" aoc202101 (1532, 1571)
+    , assertAoC2021 "02_sample" aoc202102 (150, 900)
+    , assertAoC2021 "02" aoc202102 (1635930, 1781819478)
+    , assertAoC2021 "03_sample" aoc202103 (198, 230)
+    , assertAoC2021 "03" aoc202103 (3633500, 4550283)
+    , assertAoC2021 "04_sample" aoc202104 (4512, 1924)
+    , assertAoC2021 "04" aoc202104 (33462, 30070)
+    , assertAoC2021 "05_sample" aoc202105 (5, 12)
+    , assertAoC2021 "05" aoc202105 (4745, 18442)
+    , assertAoC2021 "06_sample" aoc202106 (5934, 26984457539)
+    , assertAoC2021 "06" aoc202106 (356190, 1617359101538)
+    , assertAoC2021 "07_sample" aoc202107 (37, 168)
+    , assertAoC2021 "07" aoc202107 (344735, 96798233)
+    , assertAoC2021 "08_sample" aoc202108 (26, 61229)
+    , assertAoC2021 "08" aoc202108 (554, 990964)
+    , assertAoC2021 "09_sample" aoc202109 (15, 1134)
+    , assertAoC2021 "09" aoc202109 (439, 900900)
+    , assertAoC2021 "10_sample" aoc202110 (26397, 288957)
+    , assertAoC2021 "10" aoc202110 (411471, 3122628974)
+    , assertAoC2021 "11_sample" aoc202111 (1656, 195)
+    , assertAoC2021 "11" aoc202111 (1647, 348)
+    , assertAoC2021 "13_sample" aoc202113 (17, day13BigO)
+    , assertAoC2021 "13" aoc202113 (712, day13BLHFJPJF)
+    , assertAoC2021 "14_sample" aoc202114 (1588, 2188189693529)
+    , assertAoC2021 "14" aoc202114 (2549, 2516901104210)
+    , assertAoC2021 "16_sample" aoc202116 (31, 54)
+    , assertAoC2021 "16" aoc202116 (993, 144595909277)
+    , assertAoC2021 "17_sample" aoc202117 (45, 112)
+    , assertAoC2021 "17" aoc202117 (12561, 3785)
+    , assertAoC2021 "18_sample" aoc202118 (4140, 3993)
+    , assertAoC2021 "18" aoc202118 (4173, 4706)
     ]
