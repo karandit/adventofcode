@@ -20,6 +20,7 @@ import AoC2021.Day14
 import AoC2021.Day16
 import AoC2021.Day17
 import AoC2021.Day18
+import AoC2021.Day25
 
 assertAoC2021 :: (Eq a, Show a) => String -> (String -> a) -> a -> Test
 assertAoC2021 = assertAoC "2021"
@@ -72,4 +73,6 @@ tests = TestList
     , assertAoC2021 "17" aoc202117 (12561, 3785)
     , assertAoC2021 "18_sample" aoc202118 (4140, 3993)
     , assertAoC2021 "18" aoc202118 (4173, 4706)
+    , assertAoC2021 "25_sample" aoc202125 58
+    , assertAoC2021 "25" aoc202125 474
     ]

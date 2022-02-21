@@ -74,6 +74,7 @@ library
       AoC2021.Day16
       AoC2021.Day17
       AoC2021.Day18
+      AoC2021.Day25
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
