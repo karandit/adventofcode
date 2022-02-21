@@ -9,7 +9,9 @@
 - [ ] introduce [doctest](https://hackage.haskell.org/package/doctest)
 - [ ] introduce [criterion](https://hackage.haskell.org/package/criterion)
 - [ ] use [Haskell language server](https://github.com/haskell/haskell-language-server)
+- [ ] use [ormolu](https://hackage.haskell.org/package/ormolu)
 - [ ] add ci based on Github Actions
 
-- [ ] introduce [MegaParsec](https://hackage.haskell.org/package/megaparsec) for 	parsing
+- [ ] introduce [ReadP](https://hackage.haskell.org/package/base-4.16.0.0/docs/Text-ParserCombinators-ReadP.html) for parsing
+- [ ] or introduce [MegaParsec](https://hackage.haskell.org/package/megaparsec) for parsing
 - [ ] introduce [orthotope](https://hackage.haskell.org/package/orthotope) for situations when a multidimensional array is needed
