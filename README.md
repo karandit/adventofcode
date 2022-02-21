@@ -4,7 +4,7 @@
 - https://byorgey.wordpress.com/2019/05/22/competitive-programming-in-haskell-scanner/
 
 # TODO
-- [ ] use properly the `package.yaml` file instead of always updating the `.cabal` file
+- [x] use properly the `package.yaml` file instead of always updating the `.cabal` file
 - [ ] introduce [tasty](https://hackage.haskell.org/package/tasty)
 - [ ] introduce [doctest](https://hackage.haskell.org/package/doctest)
 - [ ] introduce [criterion](https://hackage.haskell.org/package/criterion)

@@ -1,10 +1,8 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.2.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
---
--- hash: a8597c1457933b752cb76ce350cc928a9770467eaf5405e303fc39cfaf147006
 
 name:           adventofcode
 version:        0.1.0.0
@@ -27,7 +25,6 @@ source-repository head
 
 library
   exposed-modules:
-      Utils
       AoC2015.Day01
       AoC2015.Day02
       AoC2015.Day03
@@ -56,6 +53,7 @@ library
       AoC2020.Day21
       AoC2020.Day22
       AoC2020.Day23
+      AoC2020.Day23Naive
       AoC2020.Day24
       AoC2020.Day25
       AoC2021.Day01
@@ -75,17 +73,18 @@ library
       AoC2021.Day17
       AoC2021.Day18
       AoC2021.Day25
+      Utils
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
-    , containers
-    , MissingH
+      MissingH
     , array
-    , vector
+    , base >=4.7 && <5
+    , containers
     , primitive
+    , vector
   default-language: Haskell2010
 
 executable adventofcode-exe
@@ -96,10 +95,10 @@ executable adventofcode-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      adventofcode
+      MissingH
+    , adventofcode
     , base >=4.7 && <5
     , containers
-    , MissingH
   default-language: Haskell2010
 
 test-suite adventofcode-test
@@ -115,7 +114,7 @@ test-suite adventofcode-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      adventofcode
+      HUnit
+    , adventofcode
     , base >=4.7 && <5
-    , HUnit
   default-language: Haskell2010
