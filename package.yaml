@@ -44,4 +44,4 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies: [adventofcode, HUnit]
+    dependencies: [adventofcode, tasty, tasty-hunit]

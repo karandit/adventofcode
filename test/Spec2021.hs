@@ -2,7 +2,8 @@ module Spec2021
 ( tests
 ) where
 
-import Test.HUnit
+import Test.Tasty
+import Test.Tasty.HUnit
 import AoCAsserts (assertAoC)
 import AoC2021.Day01
 import AoC2021.Day02
@@ -22,7 +23,7 @@ import AoC2021.Day17
 import AoC2021.Day18
 import AoC2021.Day25
 
-assertAoC2021 :: (Eq a, Show a) => String -> (String -> a) -> a -> Test
+assertAoC2021 :: (Eq a, Show a) => String -> (String -> a) -> a -> TestTree
 assertAoC2021 = assertAoC "2021"
 
 day13BigO = [
@@ -40,7 +41,7 @@ day13BLHFJPJF = [
     "x  x x    x  x x    x  x x    x  x x   ",
     "xxx  xxxx x  x x     xx  x     xx  x   "]
 
-tests = TestList
+tests = testGroup "2021"
     [ assertAoC2021 "01_sample" aoc202101 (7, 5)
     , assertAoC2021 "01" aoc202101 (1532, 1571)
     , assertAoC2021 "02_sample" aoc202102 (150, 900)

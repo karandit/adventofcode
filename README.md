@@ -5,7 +5,7 @@
 
 # TODO
 - [x] use properly the `package.yaml` file instead of always updating the `.cabal` file
-- [ ] introduce [tasty](https://hackage.haskell.org/package/tasty)
+- [x] introduce [tasty](https://hackage.haskell.org/package/tasty)
 - [ ] introduce [doctest](https://hackage.haskell.org/package/doctest)
 - [ ] introduce [criterion](https://hackage.haskell.org/package/criterion)
 - [ ] use [Haskell language server](https://github.com/haskell/haskell-language-server)

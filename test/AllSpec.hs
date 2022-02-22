@@ -1,11 +1,11 @@
-import Test.HUnit
+import Test.Tasty
 import qualified Spec2015
 import qualified Spec2020
 import qualified Spec2021
 
-main = runTestTT tests
+main = defaultMain tests
 
-tests = TestList
+tests = testGroup "tests"
             [ Spec2015.tests
             , Spec2020.tests
             , Spec2021.tests

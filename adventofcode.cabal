@@ -114,7 +114,8 @@ test-suite adventofcode-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HUnit
-    , adventofcode
+      adventofcode
     , base >=4.7 && <5
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
