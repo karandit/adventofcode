@@ -37,7 +37,7 @@ executables:
     dependencies: [adventofcode, containers, MissingH]
 
 tests:
-  adventofcode-test:
+  tasty-test:
     main:                AllSpec.hs
     source-dirs:         test
     ghc-options:
@@ -45,3 +45,11 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies: [adventofcode, tasty, tasty-hunit]
+  doc-test:
+    main:                DocTest.hs
+    source-dirs:         doctest
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies: [adventofcode, doctest]
