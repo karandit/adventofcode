@@ -9,7 +9,7 @@ direction '(' = 1
 direction ')' = -1
 direction  _  = 0
 
--- | Part1
+-- | Part 1
 --
 -- >>> part1 "(())"
 -- 0
@@ -26,7 +26,7 @@ direction  _  = 0
 part1 :: String -> Int
 part1 input = sum . map direction $ input
 
--- | Part2
+-- | Part 2
 --
 -- >>> part2 ")"
 -- 1

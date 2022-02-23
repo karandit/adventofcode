@@ -1,11 +1,11 @@
 module AoC2020.Day15
-( aoc202015a
-, aoc202015b
+( aoc202015
 ) where
 
 import qualified Data.Map as M
 import Data.List
-import Utils (insUpd)
+import Data.List.Utils (split)
+import Utils (insUpd, readInt, (|>))
 
 guess stop round lastSpoken store = 
   if round == stop+1
@@ -17,5 +17,21 @@ guess stop round lastSpoken store =
        in guess stop (round + 1) nextSpoken nextStore
 
 
-aoc202015a stop xs = guess stop (1 + length xs) (last xs) $ M.fromList $ zip xs [1..]
-aoc202015b = aoc202015a
+-- | Recently spoken number after stop rounds
+--
+-- >>> spokenNr 2020 [1,3,2]
+-- 1
+-- >>> spokenNr 2020 [2,1,3]
+-- 10
+-- >>> spokenNr 2020 [1,2,3]
+-- 27
+-- >>> spokenNr 2020 [2,3,1]
+-- 78
+-- >>> spokenNr 2020 [3,2,1]
+-- 438
+-- >>> spokenNr 2020 [3,1,2]
+-- 1836
+spokenNr stop xs = guess stop (1 + length xs) (last xs) $ M.fromList $ zip xs [1..]
+
+aoc202015 input = (spokenNr 2020 nrs, "MISSING") where
+    nrs = input |> lines |> head |> split "," |> map readInt

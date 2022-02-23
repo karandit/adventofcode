@@ -1,10 +1,13 @@
 module AoC2020.Day05
 ( aoc202005
-, seatId
 ) where
 
 import Data.List
 
+-- | Calculates the seat id
+--
+-- >>> seatId "FBFBBFFRLR"
+-- 357
 seatId l =
   let
     binToDec upper = sum . map (2^) . findIndices (==upper) . reverse

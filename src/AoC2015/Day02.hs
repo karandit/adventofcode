@@ -1,24 +1,32 @@
 module AoC2015.Day02
-( aoc201502a
-, aoc201502b
-, aoc201502
+( aoc201502
 ) where
 
 import Utils
 
-parseInput201502 =
+parseInput =
   let readNums = map readInt . words . replace 'x' ' '
   in  map readNums . lines
 
-aoc201502a [a,b,c] =
+-- | Part 1
+-- >>> paper [2, 3, 4]
+-- 58
+-- >>> paper [1, 1, 10]
+-- 43
+paper [a,b,c] =
   let surfaces = [a*b, a*c, b*c]
   in 2 * (sum surfaces) + minimum surfaces
 
-aoc201502b ns@[a,b,c] =
+-- | Part 2
+-- >>> ribbon [2, 3, 4]
+-- 34
+-- >>> ribbon [1, 1, 10]
+-- 14
+ribbon ns@[a,b,c] =
   let perimeters = [a+b, a+c, b+c]
   in 2 * (minimum perimeters) + product ns
 
 aoc201502 input = (part1, part2) where
-  triples = parseInput201502 input
-  part1 = sum $ map aoc201502a triples
-  part2 = sum $ map aoc201502b triples
+  triples = parseInput input
+  part1 = sum $ map paper triples
+  part2 = sum $ map ribbon triples

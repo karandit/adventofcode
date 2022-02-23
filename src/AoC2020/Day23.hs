@@ -109,5 +109,6 @@ backToCanonical i v acc =
 
 aoc202023 :: String -> (String, String)
 aoc202023 input = (part1, part2) where
-  part1 = solve (\nrs -> head nrs) (\nrs -> length nrs) 100 True input
-  part2 = solve (\_   -> 9)        (\_   -> 1000000)    10000000 False input
+  nr = input |> lines |> head
+  part1 = solve (\nrs -> head nrs) (\nrs -> length nrs) 100 True nr
+  part2 = solve (\_   -> 9)        (\_   -> 1000000)    10000000 False nr
