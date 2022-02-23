@@ -107,7 +107,7 @@ test-suite doc-test
   other-modules:
       Paths_adventofcode
   hs-source-dirs:
-      doctest
+      test/doctests
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       adventofcode
@@ -125,7 +125,7 @@ test-suite tasty-test
       Spec2021
       Paths_adventofcode
   hs-source-dirs:
-      test
+      test/unittests
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       adventofcode

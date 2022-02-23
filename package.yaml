@@ -39,7 +39,7 @@ executables:
 tests:
   tasty-test:
     main:                AllSpec.hs
-    source-dirs:         test
+    source-dirs:         test/unittests
     ghc-options:
     - -threaded
     - -rtsopts
@@ -47,7 +47,7 @@ tests:
     dependencies: [adventofcode, tasty, tasty-hunit]
   doc-test:
     main:                DocTest.hs
-    source-dirs:         doctest
+    source-dirs:         test/doctests
     ghc-options:
     - -threaded
     - -rtsopts
