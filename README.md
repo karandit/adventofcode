@@ -2,7 +2,17 @@
 
 - https://byorgey.wordpress.com/2019/04/30/code-style-and-moral-absolutes/
 - https://byorgey.wordpress.com/2019/05/22/competitive-programming-in-haskell-scanner/
+# How to use ormolu
 
+```
+$ stack install ormolu
+$ ormolu --mode inplace $(git ls-files '*.hs')
+```
+
+To check if files are are already formatted:
+```
+`$ ormolu --mode check $(find . -name '*.hs')
+```
 # TODO
 - [x] use properly the `package.yaml` file instead of always updating the `.cabal` file
 - [x] introduce [tasty](https://hackage.haskell.org/package/tasty)
