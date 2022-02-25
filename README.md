@@ -19,7 +19,7 @@ To check if files are are already formatted:
 - [x] introduce [doctest](https://hackage.haskell.org/package/doctest)
 - [ ] introduce [criterion](https://hackage.haskell.org/package/criterion)
 - [ ] use [Haskell language server](https://github.com/haskell/haskell-language-server)
-- [ ] use [ormolu](https://hackage.haskell.org/package/ormolu)
+- [x] use [ormolu](https://hackage.haskell.org/package/ormolu)
 - [ ] add ci based on Github Actions
 
 - [ ] introduce [ReadP](https://hackage.haskell.org/package/base-4.16.0.0/docs/Text-ParserCombinators-ReadP.html) for parsing

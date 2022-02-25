@@ -1,13 +1,14 @@
 module AoC2015.Day01
-( aoc201501
-) where
+  ( aoc201501,
+  )
+where
 
-import Data.Maybe (fromMaybe)
 import Data.List (findIndex)
+import Data.Maybe (fromMaybe)
 
 direction '(' = 1
 direction ')' = -1
-direction  _  = 0
+direction _ = 0
 
 -- | Part 1
 --
