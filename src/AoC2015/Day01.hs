@@ -34,7 +34,7 @@ part1 input = sum . map direction $ input
 -- >>> part2 "()())"
 -- 5
 part2 :: String -> Int
-part2 = fromMaybe (-500) . findIndex (< 0) . scanl (+) 0 . map direction
+part2 = fromMaybe (-1) . findIndex (< 0) . scanl (+) 0 . map direction
 
 aoc201501 :: String -> (Int, Int)
 aoc201501 input = (part1 input, part2 input)
