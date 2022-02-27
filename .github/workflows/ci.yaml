@@ -2,12 +2,17 @@ on: [push]
 name: build
 jobs:
   runhaskell:
-    name: Build
+    name: Haskell
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: haskell/actions/setup@v1
         with:
           enable-stack: true
-          stack-version: 'latest'
+          stack-version: '2.7.3'
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('package.yaml') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('stack.yaml.locl') }}-
+          path: ~/.stack
       - run: stack test
