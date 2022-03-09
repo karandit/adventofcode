@@ -35,6 +35,12 @@ Add HLS to coc by editing coc's configuration `:CocConfig`
 }
 ```
 
+# How to use ghcid
+
+```
+ghcid --command="stack ghci src/AoC2021/Day01.hs" --test=main --setup ":set +s"
+```
+
 # How to use ormolu
 
 ```
