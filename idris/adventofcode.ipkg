@@ -1,0 +1,7 @@
+package adventofcode
+
+sourcedir = "src"
+
+modules = AoC
+        , AoC2021.Day01
+

@@ -1,0 +1,4 @@
+$1 PrintAoC2021.idr -p adventofcode -o print-aoc2021
+./build/exec/print-aoc2021
+
+rm -rf build

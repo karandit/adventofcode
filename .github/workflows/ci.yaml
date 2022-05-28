@@ -16,3 +16,15 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('stack.yaml.locl') }}-
           path: ~/.stack
       - run: stack test
+
+  runidris:
+    name: Idris2
+    runs-on: ubuntu-latest
+    container: mattpolzin2/idris-docker:0.5.1
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Idris2 golden tests
+        run: |
+          cd idris
+          idris2 --install adventofcode.ipkg
+          idris2 --build adventofcode-tests.ipkg

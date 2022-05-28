@@ -1,0 +1,12 @@
+package adventofcode-tests
+
+sourcedir = "tests"
+
+executable = run-all-tests
+depends = contrib
+        , test
+
+modules = AllTests
+main = AllTests
+
+postbuild = "./build/exec/run-all-tests idris2 --timing"
