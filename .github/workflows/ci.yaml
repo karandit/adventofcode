@@ -12,10 +12,12 @@ jobs:
           stack-version: '2.7.3'
       - uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('package.yaml') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('stack.yaml.locl') }}-
-          path: ~/.stack
-      - run: stack test
+          key: ${{ runner.os }}-${{ hashFiles('haskell/stack.yaml.lock') }}-${{ hashFiles('haskell/package.yaml') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('haskell/stack.yaml.lock') }}-
+          path: ~/haskell/.stack
+      - run: |
+          cd haskell
+          stack test
 
   runidris:
     name: Idris2
