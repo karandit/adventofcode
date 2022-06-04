@@ -1,0 +1,17 @@
+module AoC2021.DayXX
+( aoc2021XX
+) where
+
+import Utils (readInt, (|>))
+
+main :: IO ()
+main = do 
+    input <- readFile "inputs/2021/dayXX_sample.txt"
+    --input <- readFile "inputs/2021/dayXX.txt"
+    putStrLn $ show $ aoc2021XX input
+
+aoc2021XX input = (part1, part2) where
+    inputNrs = input |> lines |> map readInt
+
+    part1 = inputNrs
+    part2 = inputNrs
