@@ -14,6 +14,7 @@ import AoC2021.Day08
 import AoC2021.Day09
 import AoC2021.Day10
 import AoC2021.Day11
+import AoC2021.Day12
 import AoC2021.Day13
 import AoC2021.Day14
 import AoC2021.Day16
@@ -69,6 +70,10 @@ tests =
       assertAoC2021 "10" aoc202110 (411471, 3122628974),
       assertAoC2021 "11_sample" aoc202111 (1656, 195),
       assertAoC2021 "11" aoc202111 (1647, 348),
+      assertAoC2021 "12_small" aoc202112 (10, 36),
+      assertAoC2021 "12_large1" aoc202112 (19, 103),
+      assertAoC2021 "12_large2" aoc202112 (226, 3509),
+      assertAoC2021 "12" aoc202112 (4241, 122134),
       assertAoC2021 "13_sample" aoc202113 (17, day13BigO),
       assertAoC2021 "13" aoc202113 (712, day13BLHFJPJF),
       assertAoC2021 "14_sample" aoc202114 (1588, 2188189693529),
