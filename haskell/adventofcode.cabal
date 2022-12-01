@@ -75,6 +75,7 @@ library
       AoC2021.Day17
       AoC2021.Day18
       AoC2021.Day25
+      AoC2022.Day01
       Utils
   other-modules:
       Paths_adventofcode
@@ -111,6 +112,7 @@ test-suite tasty-test
       Spec2015
       Spec2020
       Spec2021
+      Spec2022
       Paths_adventofcode
   hs-source-dirs:
       test/unittests
