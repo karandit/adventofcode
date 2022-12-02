@@ -76,6 +76,7 @@ library
       AoC2021.Day18
       AoC2021.Day25
       AoC2022.Day01
+      AoC2022.Day02
       Utils
   other-modules:
       Paths_adventofcode
