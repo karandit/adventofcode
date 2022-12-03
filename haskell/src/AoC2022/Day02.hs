@@ -3,35 +3,32 @@ module AoC2022.Day02
   )
 where
 
+import Data.Char (ord)
 import Utils ((|>))
 
 aoc202202 input = (part1, part2)
   where
-    parseC1 'A' = 1
-    parseC1 'B' = 2
-    parseC1 'C' = 3
+    process f =
+      input
+        |> lines
+        |> map (\[a, ' ', b] -> f (1 + ord a - ord 'A') (1 + ord b - ord 'X'))
+        |> sum
 
-    parseC2 'X' = 1
-    parseC2 'Y' = 2
-    parseC2 'Z' = 3
+    part1 =
+      process
+        ( \a b ->
+            let dwl = (3 + b - a) `mod` 3 -- 0 draw, 1 win, 2 lose
+                points = ((1 + dwl) `mod` 3) * 3 -- 3 points draw, 6 points win, 0 points lose
+             in b + points
+        )
 
-    whatb 1 3 = 2
-    whatb 2 3 = 3
-    whatb 3 3 = 1
-    whatb 1 1 = 3
-    whatb 2 1 = 1
-    whatb 3 1 = 2
-    whatb a 2 = a
-
-    solution f = input |> lines |> map (\[a, ' ', b] -> f (parseC1 a) (parseC2 b)) |> sum
-
-    calc1 a b = b + points
-      where
-        dwl = (3 + b - a) `mod` 3 -- 0 draw, 1 win, 2 lose
-        points = ((1 + dwl) `mod` 3) * 3 -- 3 points draw, 6 points win, 0 points lose
-    calc2 a ldw = b + points
-      where
-        b = whatb a ldw -- 1 lose, 2 draw, 3 win
-        points = (ldw - 1) * 3 -- it is the same as in calc1
-    part1 = solution calc1
-    part2 = solution calc2
+    part2 =
+      process
+        ( \a ldw ->
+            let guessb 1 1 = 3
+                guessb a 1 = a - 1
+                guessb a 2 = a -- draw
+                guessb a 3 = (a `mod` 3) + 1 -- win
+                points = (ldw - 1) * 3 -- it is the same as in calc1
+             in guessb a ldw + points
+        )
