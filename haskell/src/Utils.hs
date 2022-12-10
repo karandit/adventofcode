@@ -4,6 +4,7 @@ module Utils
     replace,
     freq,
     replaceNth,
+    chunksOf,
     dec2bin,
     bin2dec,
     bin2decBy,
@@ -46,6 +47,10 @@ insUpd store k val = case M.lookup k store of
   Nothing -> M.insert k val store
 
 debug s a = trace (s ++ ":" ++ (show a)) a
+
+chunksOf :: Int -> [a] -> [[a]]
+chunksOf _ [] = []
+chunksOf n l = (take n l) : (chunksOf n (drop n l))
 
 -- pipe operator
 infixl 0 |>
