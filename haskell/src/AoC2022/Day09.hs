@@ -7,13 +7,6 @@ import Data.List.Utils (split)
 import qualified Data.Set as S
 import Utils (readInt, (|>))
 
-main :: IO ()
-main = do
-  input <- readFile "../inputs.txt"
-  input <- readFile "../inputb.txt"
-  input <- readFile "../input.txt"
-  putStrLn $ show $ aoc202209 input
-
 aoc202209 input = (part1, part2)
   where
     moves =
