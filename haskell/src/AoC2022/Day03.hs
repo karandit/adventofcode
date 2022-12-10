@@ -2,13 +2,9 @@ module AoC2022.Day03
 ( aoc202203
 ) where
 
-import Utils ((|>))
+import Utils ((|>), chunksOf)
 import Data.List (intersect)
 import Data.Char (ord)
-
-chunksOf3 :: [a] -> [[a]]
-chunksOf3 [] = []
-chunksOf3 l = (take 3 l) : (chunksOf3 (drop 3 l))
 
 aoc202203 input = (part1, part2) where
     solve f = input 
@@ -18,4 +14,4 @@ aoc202203 input = (part1, part2) where
             |> map (\x -> if x < 97 then x - 38 else x - 96)
             |> sum
     part1 = solve (map (\l -> let half = (length l) `div` 2 in [take half l, drop half l]))
-    part2 = solve chunksOf3
+    part2 = solve (chunksOf 3)
