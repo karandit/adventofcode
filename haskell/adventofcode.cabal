@@ -87,6 +87,7 @@ library
       AoC2022.Day10
       AoC2022.Day11
       AoC2022.Day12
+      AoC2022.Day13
       Utils
   other-modules:
       Paths_adventofcode

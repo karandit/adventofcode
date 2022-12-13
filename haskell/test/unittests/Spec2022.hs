@@ -15,6 +15,7 @@ import AoC2022.Day09
 import AoC2022.Day10
 import AoC2022.Day11
 import AoC2022.Day12
+import AoC2022.Day13
 import AoCAsserts (assertAoC)
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -67,5 +68,7 @@ tests =
       assertAoC2022 "11_sample" aoc202211 (10605, 2713310158),
       assertAoC2022 "11" aoc202211 (112221, 25272176808),
       assertAoC2022 "12_sample" aoc202212 (31, 29),
-      assertAoC2022 "12" aoc202212 (425, 418)
+      assertAoC2022 "12" aoc202212 (425, 418),
+      assertAoC2022 "13_sample" aoc202213 (13, 140),
+      assertAoC2022 "13" aoc202213 (6086, 27930)
     ]
