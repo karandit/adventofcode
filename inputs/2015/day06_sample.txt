@@ -1,5 +1,0 @@
-turn on 887,9 through 959,629
-turn on 454,398 through 844,448
-turn off 539,243 through 559,965
-turn off 370,819 through 676,868
-toggle 720,196 through 897,994

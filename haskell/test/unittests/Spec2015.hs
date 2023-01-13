@@ -12,16 +12,18 @@ import AoCAsserts (assertAoC)
 import Test.Tasty
 import Test.Tasty.HUnit
 
-assertAoC2015 :: (Eq a, Show a) => String -> (String -> a) -> a -> TestTree
-assertAoC2015 = assertAoC "2015"
+assert2015 :: (Eq a, Show a) => (String -> a) -> [(String, a)] -> TestTree
+assert2015 sut inputs =
+    let day = take 2 $ fst $ head $ inputs
+    in testGroup ("Day " ++ day) $
+        map (\(fileName, expected) -> assertAoC "2015" fileName sut expected) inputs
 
 tests =
   testGroup
     "2015"
-    [ assertAoC2015 "01" aoc201501 (138, 1771), -- Day01
-      assertAoC2015 "02" aoc201502 (1586300, 3737498), -- Day02
-      assertAoC2015 "03" aoc201503 (2081, 2341),
-      assertAoC2015 "05_sample" aoc201505 (2, 0), -- Day05
-      assertAoC2015 "05" aoc201505 (255, 55),
-      assertAoC2015 "06" aoc201506 (377891, 14110788) -- Day06
+    [ assert2015 aoc201501 [("01", (138, 1771))],
+      assert2015 aoc201502 [("02", (1586300, 3737498))],
+      assert2015 aoc201503 [("03", (2081, 2341))],
+      assert2015 aoc201505 [("05", (255, 55)), ("05S", (2, 0))],
+      assert2015 aoc201506 [("06", (377891, 14110788))]
     ]
