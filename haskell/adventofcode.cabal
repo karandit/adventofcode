@@ -120,11 +120,6 @@ test-suite tasty-test
   type: exitcode-stdio-1.0
   main-is: AllSpec.hs
   other-modules:
-      AoCAsserts
-      Spec2015
-      Spec2020
-      Spec2021
-      Spec2022
       Paths_adventofcode
   hs-source-dirs:
       test/unittests
