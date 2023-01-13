@@ -9,6 +9,7 @@ import qualified Data.Maybe as Maybe
 import qualified Data.Set as S
 import qualified Data.String.Utils as SS
 import Utils
+import Data.List.Utils (split)
 
 parseRow input =
   let parseTokens word =
@@ -46,13 +47,14 @@ fieldsPresentAndValid store =
     )
     $ zip fields checks
 
-solution pred input =
-  let countPass (store, count) "" = (M.empty, count + (if pred store then 1 else 0))
-      countPass (store, count) row = (M.union store $ parseRow row, count)
-      res = foldl countPass (M.empty, 0) $ lines input
-   in snd $ countPass res ""
+solve pred input = input
+            |> lines
+            |> split [""]
+            |> map (foldl (\acc row -> M.union acc $ parseRow row) M.empty)
+            |> filter pred
+            |> length
 
 aoc202004 input = (part1, part2)
   where
-    part1 = solution fieldsPresent input
-    part2 = solution fieldsPresentAndValid input
+    part1 = solve fieldsPresent input
+    part2 = solve fieldsPresentAndValid input

@@ -32,9 +32,22 @@ weight bagName store =
   maybe 0 (\innerBags -> 1 + (sum $ map (\(n, w) -> w * weight n store) innerBags)) $
     M.lookup bagName store
 
-aoc202007 input = (part1, part2)
-  where
-    part1 =
-      let store = M.map (map fst) $ readBags input
-       in length $ filter (canContain store) $ M.keys store
-    part2 = (+) (-1) . weight shiny . readBags $ input
+part1 input =
+  let store = M.map (map fst) $ readBags input
+  in length . filter (canContain store) $ M.keys store
+
+{- | Part 2
+>>> :{
+part2 "shiny gold bags contain 2 dark red bags.\n\
+      \dark red bags contain 2 dark orange bags.\n\
+      \dark orange bags contain 2 dark yellow bags.\n\
+      \dark yellow bags contain 2 dark green bags.\n\
+      \dark green bags contain 2 dark blue bags.\n\
+      \dark blue bags contain 2 dark violet bags.\n\
+      \dark violet bags contain no other bags."
+:}
+126
+-}
+part2 input = (+) (-1) . weight shiny . readBags $ input
+
+aoc202007 input = (part1 input, part2 input)

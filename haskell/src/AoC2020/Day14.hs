@@ -37,7 +37,26 @@ solution f =
       foldInstr (mask, store) (Write (mem, val)) = (mask, f mask store mem val)
    in sum . map bin2dec . M.elems . snd . foldl foldInstr ("", M.empty) . readInstrs
 
-aoc202014 input = (part1, part2)
-  where
-    part1 = solution rule1 input
-    part2 = solution rule2 input
+{- | Part 1
+>>> :{
+part1 "mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X\n\
+      \mem[8] = 11\n\
+      \mem[7] = 101\n\
+      \mem[8] = 0"
+:}
+165
+-}
+part1 = solution rule1
+
+{- | Part 2
+>>> :{
+part2 "mask = 000000000000000000000000000000X1001X\n\
+      \mem[42] = 100\n\
+      \mask = 00000000000000000000000000000000X0XX\n\
+      \mem[26] = 1"
+:}
+208
+-}
+part2 = solution rule2
+
+aoc202014 input = (part1 input, part2 input)

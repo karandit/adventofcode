@@ -6,6 +6,10 @@ where
 import Data.List (find, inits, tails)
 import Utils (readInt)
 
+{- | Part 1
+>>> part1 5 "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576"
+127
+-}
 part1 preamble input =
   part1' preamble $ map readInt $ lines input
 
@@ -17,6 +21,10 @@ part1' preamble nums =
         Nothing -> if isNotPairSum pre n then ([], Just n) else ((tail pre) ++ [n], Nothing)
    in maybe 0 id $ snd $ foldl findNotPairSum (take preamble nums, Nothing) $ drop preamble nums
 
+{- | Part 2
+>>> part2 5 "35\n20\n15\n25\n47\n40\n62\n55\n65\n95\n102\n117\n150\n182\n127\n219\n299\n277\n309\n576"
+62
+-}
 part2 preamble input =
   let nums = map readInt $ lines input
       invalid = part1' preamble nums
@@ -28,4 +36,4 @@ part2 preamble input =
       contiguous = findContiguous nums
    in maximum contiguous + minimum contiguous
 
-aoc202009 preamble input = (part1 preamble input, part2 preamble input)
+aoc202009 input = (part1 25 input, part2 25 input)
