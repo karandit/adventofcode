@@ -15,5 +15,5 @@ printSolution solutionFunc day = do
 partial
 main : IO ()
 main = do
-         printSolution aoc202101 "01_sample"
+         printSolution aoc202101 "01S"
          printSolution aoc202101 "01"
