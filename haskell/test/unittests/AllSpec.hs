@@ -62,18 +62,20 @@ import AoC2022.Day10
 import AoC2022.Day11
 import AoC2022.Day12
 import AoC2022.Day13
+import AoC2022.Day21
 import AoC2022.Day25
 
 main = defaultMain tests
 
 assertAoC :: (Eq a, Show a) => String -> (String -> a) -> [(String, a)] -> TestTree
 assertAoC year sut inputs =
-    let day = take 2 $ fst $ head $ inputs
-    in testGroup ("Day " ++ day) $
-        map (\(fileName, expected) -> testCase ("day" ++ fileName ++ ".txt") $ do
+    testGroup ("Day " ++ (take 2 $ fst $ head $ inputs)) $
+      map (\(fileName, expected) ->
                 let path = year ++ "/day" ++ fileName ++ ".txt"
-                input <- readFile ("../inputs/" ++ path)
-                assertEqual ("AoC " ++ path) expected (sut input)) inputs
+                in testCase path $ do
+                    input <- readFile ("../inputs/" ++ path)
+                    assertEqual ("AoC " ++ path) expected (sut input))
+          inputs
 
 assert2015 :: (Eq a, Show a) => (String -> a) -> [(String, a)] -> TestTree
 assert2015 = assertAoC "2015"
@@ -199,6 +201,7 @@ tests =
           assert2022 aoc202211 [("11", (112221, 25272176808)), ("11S", (10605, 2713310158))],
           assert2022 aoc202212 [("12", (425, 418)), ("12S", (31, 29))],
           assert2022 aoc202213 [("13", (6086, 27930)), ("13S", (13, 140))],
+          assert2022 aoc202221 [("21", (75147370123646, 3423279932937)), ("21S", (152, 301))],
           assert2022 aoc202225 [("25", "20-1-11==0-=0112-222"), ("25S", "2=-1=0")]
         ]
     ]
