@@ -13,8 +13,7 @@ import qualified Data.Range  as R
 
 manhattan (x1, y1) (x2, y2) = abs (x1 - x2) + abs (y1 - y2)
 
-aoc202215 input = (part1, part2) where
-    inputY = 2000000
+aoc202215 inputY input = (part1, part2) where
     parseSensor s = s
       |> stripPrefix "Sensor at " |> Maybe.fromMaybe "" |> split ":"
       |> (\[a,b] -> (a, b |> stripPrefix " closest beacon is at " |> Maybe.fromMaybe ""))
