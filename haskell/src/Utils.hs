@@ -19,6 +19,8 @@ where
 import qualified Data.Char as Char
 import Data.List
 import qualified Data.Map as M
+import qualified Data.Set as S
+import qualified Data.Maybe as Maybe
 import Debug.Trace (trace)
 
 readInt :: String -> Int
@@ -41,6 +43,13 @@ dec2bin =
 bin2dec = sum . map (2 ^) . findIndices (== '1') . reverse
 
 bin2decBy upper = sum . map (2 ^) . findIndices (== upper) . reverse
+
+printMatrix :: [Int] -> [Int] -> S.Set (Int, Int) -> String
+printMatrix xs ys store =
+    unlines [show [Maybe.fromMaybe '.'
+                   $ fmap (const '#')
+                   $ S.lookupIndex (x, y) store| x <- xs ]
+                | y <- ys]
 
 insUpd store k val = case M.lookup k store of
   Just _ -> M.update (\_ -> Just val) k store
