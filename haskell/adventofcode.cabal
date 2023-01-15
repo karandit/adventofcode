@@ -93,6 +93,7 @@ library
       AoC2022.Day21
       AoC2022.Day22
       AoC2022.Day23
+      AoC2022.Day24
       AoC2022.Day25
       Utils
   other-modules:
