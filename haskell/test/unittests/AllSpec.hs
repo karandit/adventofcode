@@ -65,6 +65,7 @@ import AoC2022.Day13
 import AoC2022.Day15
 import AoC2022.Day18
 import AoC2022.Day21
+import AoC2022.Day22
 import AoC2022.Day25
 
 main = defaultMain tests
@@ -215,7 +216,7 @@ tests =
           --testDay1 aoc202219 "MISSING"
           --testDay1 aoc202220 "MISSING, in java"
           testDay1 aoc202221 [("21", (75147370123646, 3423279932937)), ("21S", (152, 301))],
-          --testDay1 aoc202222 "MISSING, hc"
+          testDay2 aoc202222 [("22", False, (50412, 130068)), ("22S", True, (6032, 5031))],
           --testDay1 aoc202223 "MISSING"
           --testDay1 aoc202224 "MISSING"
           testDay1 aoc202225 [("25", "20-1-11==0-=0112-222"), ("25S", "2=-1=0")]
