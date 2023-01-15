@@ -18,11 +18,8 @@ parse '2' = 2
 --
 -- >>> map fromSNAFU ["1=0","1-0","1=11-2","1-0---0","1121-1110-1=0"]
 -- [15,20,2022,12345,314159265]
-fromSNAFU snafu = snafu
-    |> reverse
-    |> zip [0..]
-    |> map (\(i, c) -> (5 ^ i) * (parse c))
-    |> sum
+fromSNAFU snafu = foldl' (\acc c -> acc * 5 + parse c) 0 snafu
+
 toChar 0 = '0'
 toChar 1 = '1'
 toChar 2 = '2'
@@ -42,9 +39,9 @@ toSNAFU n =
     in go [] n
         |> reverse
         |> foldl' (\(carry, bits) i ->
-            let i' = i + (if carry then 1 else 0)
-            in (i' > 2, (i' `mod` 5):bits)) (False, [])
-        |> (\(carry, bits) -> if carry then 1:bits else bits)
+            let i' = i + carry
+            in (if i' > 2 then 1 else 0, (i' `mod` 5):bits)) (0, [])
+        |> (\(carry, bits) -> if carry == 1 then 1:bits else bits)
         |> map toChar
 
 aoc202225 input = input |> lines |> map fromSNAFU |> sum |> toSNAFU
