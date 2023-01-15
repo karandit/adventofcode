@@ -3,10 +3,9 @@ module AoC2022.Day11
   )
 where
 
-import Data.List (sort, stripPrefix)
+import Data.List (sort)
 import Data.List.Utils (split)
 import qualified Data.Map as M
-import qualified Data.Maybe as Maybe
 import Utils (readInt, (|>))
 
 data Monkey = Monkey
@@ -20,8 +19,6 @@ data Monkey = Monkey
 
 aoc202211 input = (part1, part2)
   where
-    dummyMonkey = Monkey 0 [] id 0 0 0
-
     parseOp [v1, op, v2] =
       ( \o ->
           let c1 = if v1 == "old" then o else readInt v1
@@ -32,17 +29,17 @@ aoc202211 input = (part1, part2)
 
     parseMonkey [_, l1, l2, l3, l4, l5] = Monkey
       { insps   = 0,
-        items   = l1 |> stripPrefix "  Starting items: " |> Maybe.fromMaybe "" |> split ", " |> map readInt,
-        op      = l2 |> stripPrefix "  Operation: new = " |> Maybe.fromMaybe "" |> split " " |> parseOp,
-        divisor = l3 |> stripPrefix "  Test: divisible by " |> Maybe.fromMaybe "" |> readInt,
-        trueId  = l4 |> stripPrefix "    If true: throw to monkey " |> Maybe.fromMaybe "" |> readInt,
-        falseId = l5 |> stripPrefix "    If false: throw to monkey " |> Maybe.fromMaybe "" |> readInt
+        items   = l1 |> filter (/= ',') |> words |> (\("Starting":"items:":r) ->  r |> map readInt),
+        op      = l2 |> words |> (\("Operation:":"new":"=":r) -> parseOp r),
+        divisor = l3 |> words |> (\["Test:","divisible", "by", n] -> readInt n),
+        trueId  = l4 |> words |> (\["If", "true:", "throw", "to", "monkey", n] -> readInt n),
+        falseId = l5 |> words |> (\["If", "false:", "throw", "to", "monkey", n] -> readInt n)
       }
 
     inputs = input |> lines |> split [""] |> map parseMonkey
 
     processRound reducer monkeys i =
-      let Monkey _ itemList f divisor trueId falseId = monkeys |> M.lookup i |> Maybe.fromMaybe dummyMonkey
+      let Monkey _ itemList f divisor trueId falseId = monkeys M.! i
 
           processItem acc2 item =
             let item2 = item |> f |> reducer
