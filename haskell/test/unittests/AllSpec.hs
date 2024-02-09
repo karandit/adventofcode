@@ -69,6 +69,7 @@ import AoC2022.Day22
 import AoC2022.Day23
 import AoC2022.Day24
 import AoC2022.Day25
+import AoC2023.Day01
 
 main = defaultMain tests
 
@@ -222,5 +223,8 @@ tests =
           testDay1 aoc202223 [("23", (4082, 1065)), ("23S", (110, 20))],
           testDay1 aoc202224 [("24", (301, 859)), ("24S", (18, 54))],
           testDay1 aoc202225 [("25", "20-1-11==0-=0112-222"), ("25S", "2=-1=0")]
+        ],
+      testYear 2023
+        [ testDay1 aoc202301 [("01", (54338, 53389)), ("01S", (142, 142))]
         ]
     ]
