@@ -1,6 +1,6 @@
 import unittest
 
-from src.AoC2023 import Day01 as AoC202301
+from AoC2023 import Day01 as AoC202301
 
 class AoCTest(unittest.TestCase):
     def assertDay(self, solver, year, day_inp, expected): 
@@ -8,7 +8,7 @@ class AoCTest(unittest.TestCase):
              data = f.read()
          self.assertEqual(solver(data), expected)
 
-    def test_day_01(self):
+    def test_2023_01(self):
          self.assertDay(AoC202301.aoc202301, 2023, "01S", (142, 142))
          self.assertDay(AoC202301.aoc202301, 2023, "01", (54338, 53389))
 
