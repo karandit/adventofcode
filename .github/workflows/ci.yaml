@@ -30,3 +30,18 @@ jobs:
           cd idris
           idris2 --install adventofcode.ipkg
           idris2 --build adventofcode-tests.ipkg
+
+  runpython:
+    name: Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
+      - name: Run Python tests
+        run: |
+            cd python
+            python test_aoc.py -v
