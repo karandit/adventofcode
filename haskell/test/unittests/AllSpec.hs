@@ -77,6 +77,7 @@ import AoC2023.Day05
 import AoC2023.Day06
 import AoC2023.Day07
 import AoC2023.Day09
+import AoC2023.Day10
 
 main = defaultMain tests
 
@@ -241,5 +242,6 @@ tests =
         , testDay1 aoc202307 [("07", (241344943, 243101568)), ("07S", (6440, 5905))]
         --, testDay1 aoc202308 MISSING
         , testDay1 aoc202309 [("09", (1834108701, 993)), ("09S", (114, 2))]
+        , testDay1 aoc202310 [("10", (7097, "MISSING")), ("10XS", (4, "MISSING")), ("10S", (8, "MISSING"))]
         ]
     ]
