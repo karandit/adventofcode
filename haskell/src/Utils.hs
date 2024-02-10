@@ -13,6 +13,7 @@ module Utils
     (|>),
     (?),
     Cond (..),
+    add2d, add3d, perimeter4, perimeter8,
   )
 where
 
@@ -77,3 +78,16 @@ infixl 1 :?
 (?) :: Bool -> Cond a -> a
 True ? (x :? _) = x
 False ? (_ :? y) = y
+
+-- perimeters, neighbours
+add2d (x, y) (dx, dy) = (x + dx, y + dy)
+
+add3d (x, y, z) (dx, dy, dz) = (x + dx, y + dy, z + dz)
+
+perimeter4 xy= map (add2d xy) [          (-1, 0),
+                               ( 0, -1),          ( 0, 1),
+                                         ( 1, 0) ]
+
+perimeter8 xy= map (add2d xy) [(-1, -1), (-1, 0), (-1, 1),
+                               ( 0, -1),          ( 0, 1),
+                               ( 1, -1), ( 1, 0), ( 1, 1) ]
