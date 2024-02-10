@@ -13,7 +13,7 @@ module Utils
     (|>),
     (?),
     Cond (..),
-    add2d, add3d, perimeter4, perimeter8,
+    manhattan2d, add2d, add3d, perimeter4, perimeter8,
   )
 where
 
@@ -80,6 +80,8 @@ True ? (x :? _) = x
 False ? (_ :? y) = y
 
 -- perimeters, neighbours
+manhattan2d (x1, y1) (x2, y2) = abs (x1 - x2) + abs (y1 - y2)
+
 add2d (x, y) (dx, dy) = (x + dx, y + dy)
 
 add3d (x, y, z) (dx, dy, dz) = (x + dx, y + dy, z + dz)
