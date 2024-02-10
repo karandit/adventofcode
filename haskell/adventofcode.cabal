@@ -101,6 +101,7 @@ library
       AoC2023.Day04
       AoC2023.Day05
       AoC2023.Day06
+      AoC2023.Day07
       Utils
   other-modules:
       Paths_adventofcode
