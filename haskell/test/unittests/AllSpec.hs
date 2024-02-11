@@ -82,6 +82,7 @@ import AoC2023.Day11
 import AoC2023.Day13
 import AoC2023.Day14
 import AoC2023.Day15
+import AoC2023.Day16
 
 main = defaultMain tests
 
@@ -252,5 +253,6 @@ tests =
         , testDay1 aoc202313 [("13", (33975, 29083)), ("13S", (405, 400))]
         , testDay1 aoc202314 [("14", (108641, 84328)), ("14S", (136, 64))]
         , testDay1 aoc202315 [("15", (502139, 284132)), ("15S", (1320, 145))]
+        , testDay1 aoc202316 [("16", (8021, 8216)), ("16S", (46, 51))]
         ]
     ]
