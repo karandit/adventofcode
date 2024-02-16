@@ -14,6 +14,7 @@ module Utils
     (?),
     Cond (..),
     manhattan2d, add2d, add3d, perimeter4, perimeter8,
+    areaShoelace
   )
 where
 
@@ -93,3 +94,7 @@ perimeter4 xy= map (add2d xy) [          (-1, 0),
 perimeter8 xy= map (add2d xy) [(-1, -1), (-1, 0), (-1, 1),
                                ( 0, -1),          ( 0, 1),
                                ( 1, -1), ( 1, 0), ( 1, 1) ]
+
+-- | Area of a polygon using Shoelace formula
+-- The coords must close a loop, it means the first and the last must be the same.
+areaShoelace ps = [x1 * y2 - x2 * y1 | (x1, y1) : (x2, y2) : _  <- tails ps] |> sum |> abs |> \x -> x `quot` 2
