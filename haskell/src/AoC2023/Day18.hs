@@ -2,16 +2,10 @@ module AoC2023.Day18
 ( aoc202318
 ) where
 
-import Utils (readInt, (|>))
+import Utils (readInt, areaShoelace, (|>))
 import Data.Foldable (foldl')
 import Numeric (readHex)
 
--- | Area of a polygon using Shoelace formula
-shoelace ps = zipWith (\(x1, y1) (x2, y2) -> x1 * y2 - x2 * y1) (init ps) (tail ps) |> sum |> abs |> \x -> x `quot` 2
-
--- | Pick's theorem: area = interior + boundary/2 - 1
--- interior = area - boundary/2 + 1
--- lava = interior + boundary = area + boundary/2 + 1
 aoc202318 input = (part1, part2) where
   inputs = input |> lines
 
@@ -26,8 +20,8 @@ aoc202318 input = (part1, part2) where
   solve instrs =  let
     boundary = instrs |> map snd |> sum
     ps = foldl' (\coords@(curCoord:_) instr -> (step curCoord instr):coords) [(0, 0)] instrs
-    area = shoelace ps
-    in area + 1 + boundary `quot` 2
+    area = areaShoelace ps
+    in area + 1 + boundary `quot` 2 -- lava = interior + boundary = area + boundary/2 + 1, see Pick's theorem
 
   mapDir '0' = 'R'
   mapDir '1' = 'D'
