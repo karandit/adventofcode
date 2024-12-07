@@ -115,6 +115,7 @@ library
       AoC2023.Day19
       AoC2024.Day01
       AoC2024.Day02
+      AoC2024.Day03
       Utils
   other-modules:
       Paths_adventofcode
@@ -127,6 +128,7 @@ library
     , containers
     , primitive
     , range
+    , regex-applicative
     , vector
   default-language: Haskell2010
 

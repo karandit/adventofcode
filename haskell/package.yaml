@@ -24,7 +24,7 @@ dependencies:
 
 library:
   source-dirs: src
-  dependencies: [range, containers, MissingH, array, vector, primitive]
+  dependencies: [range, containers, MissingH, array, vector, primitive, regex-applicative]
 
     #executables:
     #  adventofcode-exe:
