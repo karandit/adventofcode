@@ -92,6 +92,7 @@ import AoC2024.Day02
 import AoC2024.Day03
 import AoC2024.Day04
 import AoC2024.Day05
+import AoC2024.Day08
 import AoC2024.Day09
 
 main = defaultMain tests
@@ -274,6 +275,7 @@ tests =
         , testDay1 aoc202403 [("03", (187825547, 85508223)), ("03S", (161, 48))]
         , testDay1 aoc202404 [("04", (2454, 1858)), ("04S", (18, 9))]
         , testDay1 aoc202405 [("05", (5588, 5331)), ("05S", (143, 123))]
+        , testDay1 aoc202408 [("08", (359, 1293)), ("08S", (14, 34))]
         , testDay1 aoc202409 [("09", (6448989155953, 6476642796832)), ("09S", (1928, 2858))]
         ]
     ]

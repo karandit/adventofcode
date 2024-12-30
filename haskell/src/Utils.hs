@@ -13,7 +13,7 @@ module Utils
     (|>),
     (?),
     Cond (..),
-    manhattan2d, add2d, add3d, perimeter4, perimeter8,
+    manhattan2d, add2d, add3d, neg2d, perimeter4, perimeter8,
     areaShoelace
   )
 where
@@ -84,6 +84,7 @@ False ? (_ :? y) = y
 manhattan2d (x1, y1) (x2, y2) = abs (x1 - x2) + abs (y1 - y2)
 
 add2d (x, y) (dx, dy) = (x + dx, y + dy)
+neg2d (x, y) = (-x, -y)
 
 add3d (x, y, z) (dx, dy, dz) = (x + dx, y + dy, z + dz)
 
