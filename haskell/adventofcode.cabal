@@ -121,6 +121,7 @@ library
       AoC2024.Day08
       AoC2024.Day09
       AoC2024.Day11
+      AoC2024.Day15
       Utils
   other-modules:
       Paths_adventofcode
