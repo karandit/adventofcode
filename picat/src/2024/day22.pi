@@ -1,0 +1,24 @@
+import util.
+
+mixPrune(N, Secret) =  (N ^ Secret) mod 16777216. 
+
+nextSecret(Secret) = S3 => 
+    S1 = mixPrune(Secret * 64, Secret),
+    S2 = mixPrune(S1 // 32, S1),
+    S3 = mixPrune(S2 * 2048, S2).
+    
+genSecret(Secret, Rounds) = Sol => 
+    Sol = Secret,
+    foreach (_ in 1..Rounds)
+        Sol := nextSecret(Sol),
+        %println(Sol),
+    end.
+
+main([File]) =>
+    Nrs = read_file_lines(File).map(to_int),
+    Part1 = [genSecret(Nr, 2000): Nr in Nrs].sum.to_string,
+
+    printf("Part1: %s%n", Part1).
+    %_ = genSecret(123, 10),
+    %println("----end---").
+

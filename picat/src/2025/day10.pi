@@ -1,0 +1,119 @@
+import util.
+import sat.
+
+trimEnds(Ls) = Ls[2..Ls.len-1].
+
+parse(S) = (Light, Wires, Joltage) =>
+    Secs = S.split(" "),
+    Light = Secs[1].trimEnds.map(parseLight).to_array,
+    Wires = Secs.trimEnds.map(parseWire),
+    Joltage = Secs[Secs.len].trimEnds.split(",").map(to_int).to_array.
+
+parseWire(S) = S[2..S.len-1].split(",").map(to_int).
+
+parseLight('.')=0.
+parseLight('#')=1.
+
+toggle(Ls, Wr) = LsNew =>
+    LsNew = copy_term(Ls),
+    foreach(N in Wr)
+        N1 = N+1,
+        LsNew[N1] := 1-LsNew[N1]
+    end.
+
+determine1((Light,Wires,_)) = Sol =>
+    L0 = new_array(Light.len),
+    bind_vars(L0, 0),
+
+    between(1, 1000, Sol),
+    foreach (_ in 1..Sol)
+        member(Wr, Wires),
+        L0 := toggle(L0, Wr), 
+    end,
+    %L0 #= Light,
+    foreach(I in 1..Light.len) L0[I] #= Light[I] end,
+    solve([$min(Sol)], Sol).
+
+determine2((Wires,Buttons,Joltage)) = Pushes =>
+    Sum #>= min(Joltage), 
+    Pushes = new_array(Buttons.len),
+    foreach(I in 1..Pushes.len)
+        Limit = min([Joltage[Btn + 1]: Btn in Wires[I]]),
+        Pushes[I] :: 0..Limit,
+        %printf("Psuhes[%d] = %w", I, Pushes[I]),
+    end,
+    
+    M #= {{Pushes[I] * Button: Button in Buttons[I]} : I in 1..Buttons.len},
+
+    foreach (I in 1..Joltage.len)
+        Joltage[I] #= sum([M[R,I]: R in 1..Buttons.len])
+    end,
+
+    Sum #= sum([I: I in Pushes]),
+    solve([$min(Sum)], [Pushes]).
+
+determine2B(Wires, ButIdxArrs,Joltage) = Pushes =>
+    Pushes = new_array(Wires.len),
+    foreach(I in 1..Pushes.len)
+        Limit = min([Joltage[Btn + 1]: Btn in Wires[I]]),
+        Pushes[I] :: 0..Limit,
+        %printf("P%w :: 0..%w,%n", I, Limit)
+    end,
+
+    foreach(I in 1..ButIdxArrs.len)
+        ButIdxArr = ButIdxArrs[I],
+        Joltage[I] #= sum([Pushes[Idx]: Idx in ButIdxArr])
+    end,
+    
+    %M #= {{Pushes[I] * Button: Button in Buttons[I]} : I in 1..Buttons.len},
+
+    %foreach (I in 1..Joltage.len)
+    %    Joltage[I] #= sum([M[R,I]: R in 1..Buttons.len])
+    %end,
+
+    Sum #= sum([I: I in Pushes]),
+    solve([$min(Sum)], Pushes).
+
+main([File]) =>
+    Ms = File.read_file_lines.map(parse),
+    Part1 = [determine1(M): M in Ms].sum,
+    printf("Part1: %w; ", Part1),
+    Part2 = 0,
+    foreach (M in Ms)
+        (_, Wires, Joltage) = M,
+        %printf(">-------%d%n", Idx),
+        %println(wires=Wires),
+        %println(joltage=Joltage),
+        %printf("wiresCnt: %w joltageCnt: %w %w%n", Wires.len, Joltage.len, cond(Wires.len > Joltage.len, "HARD", "EASY")),
+        Buttons = new_array(Wires.len, Joltage.len),
+        bind_vars(Buttons, 0),
+        foreach (I in 1..Wires.len)
+            foreach(Button in Wires[I])
+                Buttons[I, Button+1] :=1,
+            end
+        end,
+        %printf("---Buttons%n"),
+        %foreach (I in 1..Buttons.len) println(Buttons[I]) end,
+        ButTrans = Buttons.transpose,
+        %printf("---Buttons Transposed%n"),
+        %foreach (I in 1..ButTrans.len) println(ButTrans[I]) end,
+        %printf("<-..Unknowns --->%n"),
+        Flags = {{I: I in 1..Row.len, Row[I] == 1 }  :Row in ButTrans  },
+
+        %foreach (I in 1..Flags.len) printf("%w = %w%n", Flags[I], Joltage[I]) end,
+        %printf("<-....%n"),
+        
+        %Sol = determine2((Wires,Buttons,Joltage)),
+        Sol = determine2B(Wires, Flags, Joltage),
+        %printf("Sol= %w%n", Sol),
+        %foreach(I in 1..Sol.len)
+        %    Bits = new_array(Joltage.len),
+        %    bind_vars(Bits, '_'),
+        %    foreach(Button in Wires[I]) Bits[Button+1] := 'X', end,
+ 
+        %    %printf("%w * %w%n", Bits, Sol[I]),
+        %end,
+        %println(Joltage),
+        Part2 := Part2 + Sol.sum,
+    end,
+    printf("Part2: %w%n", Part2).

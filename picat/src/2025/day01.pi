@@ -1,0 +1,16 @@
+parse(['L'|N]) = -1 * to_int(N).
+parse(['R'|N]) = to_int(N).
+
+f1(Rot, (Dial, L)) = (Dial1, [(Dial1, Dial1)|L]) => Dial1 = Dial + Rot.
+
+f2(Rot, (Dial, L)) = (Dial+Rot, [(Dial+Start,Dial+End)|L]) =>
+    (Start, End) = cond(Rot > 0, (1, Rot), (Rot, -1)).
+
+solve(Rotations, Func) = Sol =>
+    (_, Dials) = fold(Func, (50, []), Rotations),
+    Sol = [[I: I in A..B, I mod 100 == 0].len: (A, B) in Dials].sum.
+
+main([File]) =>
+    Rotations = File.read_file_lines.map(parse),
+    printf("Part1: %w; ", solve(Rotations, $f1)),
+    printf("Part2: %w%n", solve(Rotations, $f2)).

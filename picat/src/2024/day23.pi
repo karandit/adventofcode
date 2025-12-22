@@ -1,0 +1,49 @@
+import util, ordset, sat.
+
+main([File]) =>
+    Edges = [split(Line, "-"): Line in read_file_lines(File)],
+    Graph = new_map(),
+    foreach([V1,V2] in Edges)
+        Graph.put(V1, [V2| Graph.get(V1, [])]),
+        Graph.put(V2, [V1| Graph.get(V2, [])]),
+    end,
+    GraphOrd = new_map(),
+    foreach(K in Graph.keys)
+        GraphOrd.put(K, new_ordset(Graph.get(K))),
+    end,
+    TSet = new_set(),
+    foreach([V1,V2] in Edges)
+        if (V1 = [t|_] || V2 = [t|_])
+            Inters = intersection(GraphOrd.get(V1), GraphOrd.get(V2)),
+            foreach(V in Inters)
+                TSet.put(sort([V, V1, V2])),
+            end,
+        end
+    end,
+    %foreach (E in sort(keys(TSet)))
+    %    println(E)
+    %end,
+    printf("Part1: %w; ", length(TSet.keys)),
+
+    EdgeSet = new_set(),
+    VSet = new_set(),
+    foreach ([V1,V2] in Edges)
+        VSet.put(V1),
+        VSet.put(V2),    
+        EdgeSet.put([V1,V2]),
+        EdgeSet.put([V2,V1])
+    end,
+    Vs = to_array(keys(VSet)),   % vertices
+    N = len(Vs),
+    Bs = new_array(N),
+    Bs :: 0..1,
+    foreach (I in 1..N-1, J in I+1..N)
+        if not EdgeSet.has_key([Vs[I],Vs[J]]) then
+            #~Bs[I] #\/ #~Bs[J]
+        end
+    end,
+    Count #= sum([B : B in Bs]),
+    solve([$max(Count)],Bs),
+    Names = sort([Vs[I] : I in 1..N, Bs[I] == 1]),
+    printf("Part2: %w%n", join(Names, ","))
+.

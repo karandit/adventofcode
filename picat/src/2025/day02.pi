@@ -1,0 +1,20 @@
+import util.
+
+invalid1(N) =>
+    S = N.to_string,
+    Mid = S.len // 2,
+    S.take(Mid) == S.drop(Mid).
+
+allSame(L) = [1:C in L, C!=F].len => F = L.head.
+        
+invalid2(N) =>
+    S = N.to_string,
+    Len = S.len,
+    0 == [allSame(chunks_of(S, I)): I in 1..Len // 2, Len mod I == 0].prod.
+
+solve(Nrs, Pred) = [[I: I in A..B, call(Pred, I)].sum: [A,B] in Nrs].sum.
+
+main([File]) =>
+    Nrs = [S.split("-").map(to_int): S in File.read_file_lines.head.split(",")],
+    printf("Part1: %w; ", solve(Nrs, $invalid1)),
+    printf("Part2: %w%n", solve(Nrs, $invalid2)).

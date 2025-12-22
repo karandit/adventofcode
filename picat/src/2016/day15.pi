@@ -1,0 +1,13 @@
+import cp.
+
+main([File]) =>
+    T :: 0..maxint_small(),
+    (T + 1 + 11) mod 13 #= 0,
+    (T + 2 + 0) mod 5 #= 0,
+    (T + 3 + 11) mod 17 #= 0,
+    (T + 4 + 0) mod 3 #= 0,
+    (T + 5 + 2) mod 7 #= 0,
+    (T + 6 + 17) mod 19 #= 0,
+    (T + 7 + 0) mod 11 #= 0,
+    solve(T),
+    printf("Part1: %w%n", T).

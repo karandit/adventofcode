@@ -1,0 +1,61 @@
+import util.
+
+parse(S) = S.split(",").map(to_int).
+
+dist([X1,Y1,Z1],[X2,Y2,Z2]) = (X1-X2)*(X1-X2) + (Y1-Y2)*(Y1-Y2) + (Z1-Z2)*(Z1-Z2). % no need for sqrt
+
+initMaps(Boxes, BoxIds, CircuitsToBoxIds, MovedBoxToBox) =>
+    BoxIds = new_map(), 
+    CircuitsToBoxIds = new_map(),
+    MovedBoxToBox = new_map(),
+    foreach(I in 1..Boxes.len)
+         put(BoxIds, Boxes[I], I),
+         put(CircuitsToBoxIds, I, [I])
+    end.
+
+getBoxIdByBox(Box, BoxJuncs, MovedBoxToBox) = BIdx =>
+    BIdx = get(BoxJuncs, Box),
+    while (MovedBoxToBox.has_key(BIdx))
+        BIdx := MovedBoxToBox.get(BIdx)
+    end.
+
+connectBoxes((_, B0, B1), BoxIds, MovedBoxToBox, CircuitsToBoxIds) =>
+    B0Idx = getBoxIdByBox(B0, BoxIds, MovedBoxToBox),
+    B1Idx = getBoxIdByBox(B1, BoxIds, MovedBoxToBox),
+    if (B0Idx != B1Idx) 
+        B1L = get(CircuitsToBoxIds, B1Idx),
+        B0L = get(CircuitsToBoxIds, B0Idx),
+        B01L = B0L ++ B1L, 
+
+        put(CircuitsToBoxIds, B1Idx, B01L),    
+        del(CircuitsToBoxIds, B0Idx),    
+        put(MovedBoxToBox, B0Idx, B1Idx),
+    end.
+
+main([ConnLimitS,File]) =>
+    Boxes = File.read_file_lines.map(parse).to_array,
+    ConnLimit = ConnLimitS.to_int,
+
+    UnsortedConns = [(dist(Boxes[I],Boxes[J]), Boxes[I], Boxes[J]): I in 1..Boxes.len, J in I+1..Boxes.len],
+    Conns = UnsortedConns.sort.to_array,
+
+    initMaps(Boxes, BoxIds, CircuitsToBoxIds, MovedBoxToBox),
+    C = 0,
+    do
+        C := C + 1,
+        connectBoxes(Conns[C], BoxIds, MovedBoxToBox, CircuitsToBoxIds)
+    while (C < ConnLimit),
+
+    Part1 = [V.len: V in CircuitsToBoxIds.values].sort.reverse.take(3).prod,
+    printf("Part1: %w; ", Part1),
+
+    initMaps(Boxes, BoxIds2, CircuitsToBoxIds2, MovedBoxToBox2),
+    C := 0,
+    do
+        C := C + 1,
+        connectBoxes(Conns[C], BoxIds2, MovedBoxToBox2, CircuitsToBoxIds2)
+    while (CircuitsToBoxIds2.keys.len > 1),
+
+    (_, [X0,_,_], [X1,_,_]) = Conns[C],
+    Part2 = X0*X1,
+    printf("Part2: %w%n", Part2).

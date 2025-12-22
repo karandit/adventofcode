@@ -1,0 +1,15 @@
+import util.
+
+process([_,L2,L3,L4,L5,L6,_]) = [L2,L3,L4,L5,L6].map(to_array).to_array.columns.map(pins).
+
+pins(Pins) = [1: P in Pins.to_list, P == '#'].len.
+
+isMatching(Key, Lock) => [X+Y : {X,Y} in zip(Key, Lock)].max <= 5.
+
+main([File]) =>
+    Schematics = File.read_file_lines.split([[]]),
+    Locks = [Sch.process: Sch in Schematics, Sch = ["#####"|_]],
+    Keys  = [Sch.process: Sch in Schematics, Sch = ["....."|_]],
+
+    Part1 = [1: Lock in Locks, Key in Keys, isMatching(Key, Lock)].len,
+    printf("Part1: %d%n", Part1).

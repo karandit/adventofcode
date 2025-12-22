@@ -1,0 +1,20 @@
+trackBeam(M, R, C, 'S', _  ) = 0 => M[R+1,C] := '|', true.
+trackBeam(M, R, C, '|', '.') = 0 => M[R+1,C] := '|', true.
+trackBeam(M, R, C, '|', '^') = 1 => M[R+1,C-1] := '|', M[R+1,C+1]:= '|', true.
+trackBeam(_, _, _, _,   _  ) = 0 => true.
+
+table(+,+,+)
+timelines(M, R, C) = Sol, M[R,C] == 'S' => Sol = timelines(M, R+1, C).
+timelines(M, R, C) = Sol, M[R,C] == '.' => Sol = cond(R == M.len, 1, timelines(M, R+1, C)).
+timelines(M, R, C) = Sol, M[R,C] == '^' => Sol = timelines(M, R+1, C-1) + timelines(M, R+1, C+1).
+
+main([File]) =>
+    M = {to_array(L) : L in read_file_lines(File)},
+
+    Part1 = [trackBeam(M, R, C, M[R,C], M[R+1,C]): R in 1..M.len-1, C in 1..M[R].len].sum,
+    printf("Part1: %w; ", Part1),
+
+    M := {to_array(L) : L in read_file_lines(File)},
+    between(1, M[1].len, ColS),
+    M[1, ColS] == 'S',
+    printf("Part2: %w%n", timelines(M, 1, ColS)).

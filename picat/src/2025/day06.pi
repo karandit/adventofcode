@@ -1,0 +1,22 @@
+import util.
+
+copy_array(M, RA, RB, CA, CB) = {{M[RA+R-1, CA+C-1]: C in 1..CB-CA+1}: R in 1..RB-RA+1}.
+
+identity(M) = M.
+
+total_column(Func, M, CA, CB, Op) = Tot =>
+    M1 = copy_array(M, 1, M.len-1, CA, CB),
+    MT = apply(Func, M1),
+    Nrs = [F.to_int: F in [L.to_list.lstrip.rstrip: L in MT], F != []],
+    Tot = cond(Op == '*', Nrs.prod, Nrs.sum).
+
+solve(M, Func) = GrandTotal =>
+    Ops = M[M.len],
+    OpsIdx = [I: I in 1..Ops.len, Ops[I] != ' '],
+    Cols = [(CA, CB-1): {CA, CB} in zip(OpsIdx, drop(OpsIdx, 1) ++ [Ops.len+1])],
+    GrandTotal = [total_column(Func, M, CA, CB, Ops[CA]): (CA, CB) in Cols].sum.
+
+main([File]) =>
+    M = {to_array(L) : L in read_file_lines(File)},
+    printf("Part1: %w; ", solve(M, $identity)),
+    printf("Part2: %w%n", solve(M, $transpose)).

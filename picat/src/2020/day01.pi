@@ -1,0 +1,14 @@
+import cp.
+
+main([File]) =>
+    Inputs = read_file_lines(File).map(to_int),
+
+    printf("Part1: %w; ", findNumbers(Inputs, 2)),
+    printf("Part2: %w%n", findNumbers(Inputs, 3)).
+
+findNumbers(Inputs, N) = prod(Vars) =>
+    Vars = new_array(N), 
+    Vars :: Inputs,
+    all_different(Vars),
+    sum(Vars) #= 2020,
+    solve(Vars).

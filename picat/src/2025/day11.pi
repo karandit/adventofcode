@@ -1,0 +1,22 @@
+import util.
+
+parse(Line) = (A = B.split(" ")) => [A, B] = Line.split(":").
+
+table(+,+,+)
+find_paths(G, Src, Dst) = 1, Src == Dst => true.
+find_paths(G, Src, Dst) = [find_paths(G, E, Dst) : E in G.get(Src)].sum.
+
+main([Which, File]) =>
+    G  = File.read_file_lines.map(parse).new_map,
+    G.put("out", []),
+
+    if (Which.first == '1')
+        printf("Part1: %w; ", find_paths(G, "you", "out"))
+    end,
+
+    if (Which.last == '2')
+        Sols = [[find_paths(G, S, D): (S, D) in [("svr", "fft"), ("fft", "dac"), ("dac", "out")]],
+                [find_paths(G, S, D): (S, D) in [("svr", "dac"), ("dac", "fft"), ("fft", "out")]]],
+        printf("Part2: %w", Sols.map(prod).sum)
+    end,
+    printf("%n").

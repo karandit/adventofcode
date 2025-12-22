@@ -1,0 +1,96 @@
+import util.
+
+parse(S) = S.split(",").map(to_int).
+
+area([X1,Y1],[X2,Y2]) = (abs(X1-X2)+1) * (abs(Y1-Y2)+1).
+
+isOverlap((X1,X2), (Y1,Y2)) => X2 > Y1, X1 < Y2.
+
+orderSec(X1,X2) = (min(X1,X2), max(X1,X2)).
+
+isInside(Edges, (Xp,Yp)) =>
+    Cnt = [1: ([X1,Y1],[X2,Y2]) in Edges,
+            cond(Yp < Y1,1,0) != cond(Yp < Y2,1,0),
+            Xp < X1 + ((Yp -Y1)/(Y2-Y1))*(X2-X1)].len,
+    Cnt mod 2 == 1.
+
+main([File]) =>
+    Tiles = File.read_file_lines.map(parse),
+    Part1 = [area(Tiles[I], Tiles[J]): I in 1..Tiles.len, J in I+1..Tiles.len].max,
+    printf("Part1: %w; ", Part1),
+    %printf("Tiles nr: %w%n", Tiles.len),
+    Red = Tiles[1],
+    Used = [],
+    IsFound = 0,
+    do
+      (Found, IsFoundT) = findBy(Tiles, Used, Red),
+      IsFound := IsFoundT,
+      if (IsFound == 0)
+          Red := Found,
+          Used := [Red|Used],
+          [X,Y] = Found,
+      end
+    while (IsFound == 0),
+
+    %printf("Connected nr: %w%n", Used.len),
+    %Vs = Used,
+    Vs = Tiles,
+    %Edges = [([X1,Y1],[X2,Y2]): {[X1,Y1],[X2,Y2]} in zip(Used, Used.drop(1) ++ [Used.head])],
+    Edges = [([X1,Y1],[X2,Y2]): {[X1,Y1],[X2,Y2]} in zip(Tiles,Tiles.drop(1) ++ [Tiles.head])],
+
+    Hors = [([X1,Y1],[X2,Y2]): ([X1,Y1],[X2,Y2]) in Edges, Y1 == Y2],
+    Vers = [([X1,Y1],[X2,Y2]): ([X1,Y1],[X2,Y2]) in Edges, X1 == X2],
+
+    Part2 = 0,
+    foreach(I in 1..Vs.len)
+        foreach(J in I+1..Vs.len)
+           VA = Vs[I],
+           VB = Vs[J],
+           [XA, YA] = VA,
+           [XB, YB] = VB,
+           XMin = min(XA,XB),
+           XMax = max(XA,XB),
+           YMin = min(YA,YB),
+           YMax = max(YA,YB),
+                
+           HorsInters = [([X1,Y],[X2,Y]) : ([X1,Y],[X2,Y]) in Hors, Y > YMin, Y < YMax, isOverlap((XMin,XMax), orderSec(X1, X2))],
+           VersInters = [([X,Y1],[X,Y2]) : ([X,Y1],[X,Y2]) in Vers, X > XMin, X < XMax, isOverlap((YMin,YMax), orderSec(Y1, Y2))],
+            
+           if (HorsInters.len == 0, VersInters.len == 0)
+                if (XA == XB; YA == YB)
+                    Part2 := max(Part2, area(VA, VB)),
+                else
+                    Center = (XMin + (XMax-XMin)/2,YMin + (YMax -YMin)/2),
+                    if (isInside(Edges, Center))
+                        Part2 := max(Part2, area(VA, VB)),
+                    end,
+                end,
+           end,
+        end 
+    end,
+    printf("Part2: %w%n", Part2).
+
+
+findBy(Tiles, Used, [X,Y]) = (Found, IsFound) =>
+    %println("findBy..."),
+    FoundsY = [[X1,Y1]:  [X1,Y1] in Tiles, not(membchk([X1,Y1],Used)), X1 != X, Y1 == Y],
+    %println(FoundsY),
+    if (FoundsY.len > 0)
+        %println("if (FoundsY.len > 0)"),
+        Found = FoundsY.head,
+        IsFound = 0
+    else
+        FoundsX = [[X1,Y1]:  [X1,Y1] in Tiles, not(membchk([X1,Y1],Used)), X1 == X, Y1 != Y],
+        %println(FoundsX),
+        if (FoundsX.len > 0)
+            %println("if (FoundsX.len > 0)"),
+            Found = FoundsX.head,
+            IsFound = 0
+        else
+            IsFound = 1,
+        end
+    end,
+    true.
+
+%https://www.evryway.com/largest-interior/#step5
+%https://www.youtube.com/watch?v=RSXM9bgqxJM

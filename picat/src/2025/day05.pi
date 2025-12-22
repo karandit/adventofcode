@@ -1,0 +1,28 @@
+import util.
+
+parseRange(S) = S.split("-").map(to_int).
+
+inRange(N, [R1,R2]) => N >= R1, N <= R2.
+
+inAnyRange(Id, Ranges) =>
+    IsInRange = 0,
+    foreach (Range in Ranges)
+        IsInRange := IsInRange + cond(inRange(Id, Range), 1, 0),
+    end,
+    IsInRange > 0.
+
+main([File]) =>
+    [A,B] = File.read_file_lines.split([""]),
+    Ranges = A.map(parseRange), 
+    Ids = B.map(to_int),
+
+    Part1 = [1: Id in Ids, inAnyRange(Id, Ranges)].len,
+    printf("Part1: %d%n", Part1),
+    
+    Part2 = 0,
+    SortedRanges = sort(Ranges),
+    println(Ranges),
+    println(SortedRanges),
+    
+    printf("Part2: %w%n", Part2),
+    println("------").

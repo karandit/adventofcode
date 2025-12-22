@@ -1,0 +1,39 @@
+import util.
+
+main([File, NArg, FallenArg]) =>
+    N = 1 + NArg.to_int,
+    Fallen = FallenArg.to_int,
+    Inputs = [Line.split(",").map(to_int): Line in read_file_lines(File)],
+
+    Grid = {{".":_ in 1..N}:_ in 1..N},
+    foreach([X,Y] in take(Inputs, Fallen)) Grid[Y+1, X+1] := '#' end,
+    
+    shortest_path(N, 1, 1, Grid, Cost),
+    printf("Part1: %w; ", Cost),
+
+    search(N, Grid, drop(Inputs, Fallen), Part2),
+    printf("Part2: %w%n", Part2.map(to_string).join(",")).
+
+table(+, +, +, +, min)
+shortest_path(N, N, N, Grid, Cost) => Cost = 0. 
+shortest_path(N, X, Y, Grid, Cost) =>
+    member((X1,Y1), [(X-1,Y),(X+1,Y),(X,Y-1),(X,Y+1)]),
+    X1 >= 1, X1 =< N,
+    Y1 >= 1, Y1 =< N,
+    Grid[Y1,X1] !== '#',
+    shortest_path(N, X1, Y1, Grid, Cost1),
+    Cost = Cost1 + 1.
+
+% binary search
+search(N,Grid,[Coord],Res) =>
+    Res = Coord.
+search(N,Grid,Coords,Res) =>
+    Mid = len(Coords) // 2,
+    search_aux(N, Grid, take(Coords, Mid), drop(Coords, Mid), Res).
+
+search_aux(N,Grid,L1,L2,Res) ?=>
+    foreach ([X,Y] in L1) Grid[Y+1,X+1] := '#' end,
+    shortest_path(N,1,1,Grid,_),!,
+    search(N,Grid,L2,Res).
+search_aux(N,Grid,L1,L2,Res) =>
+    search(N,Grid,L1,Res).

@@ -1,0 +1,47 @@
+import planner.
+
+main([File]) =>
+    Ls = read_file_lines(File),
+    M = {to_array(L) : L in Ls},
+    NRows = len(M),
+    NCols = len(M[1]),
+    between(2,NRows,Rs),
+    between(2,NCols,Cs),
+    M[Rs,Cs] == 'S',
+    between(2,NRows,Re),
+    between(2,NCols,Ce),
+    M[Re,Ce] == 'E',
+    %printf("S: (%d, %d); E: (%d, %d)%n", Rs, Cs, Re, Ce),
+
+    Dr = 0, Dc = 1,   % east
+    best_plan_unbounded([Dr,Dc,Rs,Cs,Re,Ce,M],Plan,Cost),
+    println("Part1: " ++ Cost.to_string).
+    %println(Plan),
+    %println("-------").
+
+final([_,_,R,C,R,C,_]) => true.
+
+action([Dr,Dc,R,C,Re,Ce,M],NextS,Action,Cost) ?=>
+    turn(Dr,Dc,Dr1,Dc1),
+    NextS = [Dr1,Dc1,R,C,Re,Ce,M],
+    Action = rotate,
+    Cost = 1000.
+
+action([Dr,Dc,R,C,Re,Ce,M],NextS,Action,Cost) =>
+    R1 = R+Dr,
+    C1 = C+Dc,
+    M[R1,C1] !== '#',
+    NextS = [Dr,Dc,R1,C1,Re,Ce,M],    
+    Action = move,
+    Cost = 1.
+
+%turn(Dr, Dc, Dc, -Dr). 
+%turn(Dr, Dc, -Dc, Dr). 
+turn(-1,0,0,1).
+turn(-1,0,0,-1).
+turn(0,1,1,0).
+turn(0,1,-1,0).
+turn(1,0,0,1).
+turn(1,0,0,-1).
+turn(0,-1,1,0).
+turn(0,-1,-1,0).

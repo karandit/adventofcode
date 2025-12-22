@@ -1,0 +1,51 @@
+import util.
+
+parseShape(L) = {{C: C in R}: R in Rs} => [_|Rs] = L.
+
+parseRegion(L) = (D1.to_int, D2.to_int, R.map(to_int).to_array) => 
+        [A|R] = L.split(": "),
+        [D1,D2] = A.split("x").
+
+differents(L) = [1:E in L, E!=H].len => H = L.head.
+
+regionSanityCheck((C, R, Qtys), ShapeSize, Pixels) = Sol =>
+        if ((C // ShapeSize) * (R // ShapeSize) >= Qtys.sum)
+            Sol = 1 % Region much larger than needed, even without rotation
+        else
+            AllPixels = [Pixels[I] * Qtys[I]: I in 1..Qtys.len].sum,
+            if (AllPixels > C*R)
+                Sol = 2 % Region much smaller
+            else
+                Sol = 3 % We are unsure
+            end,
+        end.
+
+main([File]) =>
+    Secs  = File.read_file_lines.split([""]),
+    Shapes = [parseShape(Secs[I]): I in 1..Secs.len-1],
+    Sizes = [(Shape.len, Shape[1].len): Shape in Shapes],
+    if (Sizes.differents != 0)
+        println("Part1: All shapes mush have the same size"),
+        exit
+    end,
+    (R0, C0) = (Shapes[1].len, Shapes[1,1].len),
+    if (C0 != R0)
+        println("Part1: Shapes must have same columns and rows"),
+        exit
+    end,
+    ShapeSize = C0,
+
+    Pixels = new_array(Shapes.len),
+    foreach(I in 1..Shapes.len)
+         M = Shapes[I], 
+         Pixels[I] = [1: R in 1..M.len, C in 1..M[R].len, M[R,C] == '#'].len,
+    end,
+    Regions = Secs[Secs.len].map(parseRegion),
+    
+    Counts = [0, 0, 0],
+    foreach(Region in Regions)
+        Res = regionSanityCheck(Region, ShapeSize, Pixels),
+        Counts[Res] := Counts[Res]+1,
+    end,
+    [Good, _, Unsure] = Counts,
+    printf("Part1: %w%n", cond(Unsure == 0, Good, "Sorry, I can not solve this")).

@@ -1,0 +1,23 @@
+import util.
+
+joltage(N, Bank) = Sum =>
+    Digits = Bank.map(to_int),
+    Sum = 0,
+    PrevI = 0,
+    foreach(DI in 1..N)
+        Max = 0,
+        foreach(I in PrevI+1..Digits.len-(N-DI))
+            if (Digits[I] > Max)
+              PrevI := I,
+              Max := Digits[I],
+           end 
+        end,
+        Sum := Sum + Max*(10**(N-DI)) 
+    end.
+
+solve(N, Banks) = [joltage(N,  Bank): Bank in Banks].sum.to_string. 
+
+main([File]) =>
+    Banks = File.read_file_lines,
+    printf("Part1: %s; ", solve( 2, Banks)),
+    printf("Part2: %s%n", solve(12, Banks)).
