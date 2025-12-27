@@ -1,0 +1,189 @@
+import util.
+
+parseTile([TileId|Lines]) = (TileId.drop(5).rstrip(":").to_int, Lines).
+
+toDec(S) = Dec =>
+    Dec = 0,
+    Power2 = 1,
+    foreach (I in 1..S.len)
+        Dec := Dec + cond(S[I] == '#', Power2, 0),
+        Power2 := Power2 * 2,
+    end.
+
+fingerPrint(S) = min(toDec(S), toDec(S.reverse)).
+
+rotate_r(M) = M1 =>
+    M1 = M.transpose,
+    foreach(I in 1..M1.len) M1[I] := M1[I].reverse end.
+
+rotate_rN(M, Times) = M1 =>
+    M1 = M,
+    foreach (_ in 1..Times)
+        M1 := M1.rotate_r,
+    end.
+
+flip(M) = M1 =>
+    M1 = M.copy_term,
+    foreach(I in 1..M1.len) M1[I] := M1[I].reverse end.
+
+getBorders(Tile) = [Top, Right, Bottom, Left] =>
+    Top = Tile[1].fingerPrint,
+    Bottom = Tile[Tile.len].fingerPrint,
+    Rotated = Tile.transpose,
+    Left = Rotated[1].fingerPrint,
+    Right = Rotated[Rotated.len].fingerPrint.
+
+removeBorder(Tile) = {{Tile[R,C]: C in 2..Tile[R].len-1}: R in 2..Tile.len-1}.
+
+copyMatrix(Src, Dst, DstR, DstC) =>
+    foreach(R in 1..Src.len)
+        foreach(C in 1..Src[R].len)
+            Dst[DstR + R - 1, DstC + C -1] := Src[R,C]
+        end
+    end.
+
+findSeaMonsters(Sea) = FoundMonsters =>
+    FoundMonsters = 0,
+    foreach(I in 1..4, break(FoundMonsters != 0))
+        FoundMonsters := findSeaMonstersAux(Sea),
+        Sea := Sea.rotate_r
+    end,
+    if (FoundMonsters == 0)
+        Sea := Sea.flip,
+        foreach(I in 1..4, break(FoundMonsters != 0))
+            FoundMonsters := findSeaMonstersAux(Sea),
+            Sea := Sea.rotate_r
+        end,
+    end.
+
+getMonster() = Points =>
+    Monster = {"                  # ",
+               "#    ##    ##    ###",
+               " #  #  #  #  #  #   "},
+    Points = [{R-1, C-19}: R in 1..3, C in 1..20, Monster[R, C] == '#'].
+
+findSeaMonstersAux(Sea) = Res =>
+    Points = getMonster(),
+    MonsterLen = Points.len,
+    Res = 0,
+    foreach(R in 1..Sea.len-2)
+        foreach(C in 19..Sea[1].len-1)
+            if ([1:{Dr,Dc} in Points, Sea[R+Dr,C+Dc] == '#'].len == MonsterLen)
+                Res := Res + 1,
+            end,
+        end
+    end.
+
+getOppositeBorder(Borders, Border) = Borders[OppositeIdx] =>
+    Idx = [I: I in 1..Borders.len, Borders[I] == Border].head,
+    OppositeIdx = ((Idx -1 + 2) mod 4) + 1.
+
+getNextIds(IdsToBorders, BorderToId, Id, Border) = (FoundNextIds, OppBorder) =>
+    IdBorders = IdsToBorders.get(Id),
+    OppBorder = getOppositeBorder(IdBorders, Border),
+    NextIds = BorderToId.get(OppBorder),
+    FoundNextIds = [AnId: AnId in NextIds, AnId != Id].
+
+main([File]) =>
+    Inputs = read_file_lines(File).split([""]),
+    Tiles = Inputs.map(parseTile),
+    IdsToTiles = [(Id = removeBorder(Tile)): (Id, Tile) in Tiles].new_map,
+    Tuples = [(Id = getBorders(Tile)): (Id, Tile) in Tiles],
+    IdsToBorders = new_map(Tuples),
+    BorderToId = new_map(0),
+    foreach(T in Tuples)
+        (Id = Borders) = T,
+        foreach(Border in Borders)
+            Ids = BorderToId.get(Border, []),
+            BorderToId.put(Border, [Id|Ids])
+        end,
+    end,
+    EdgeIdsToBorders = new_map(0),
+    foreach((K = V) in BorderToId.map_to_list)
+        if (V.len == 1)
+            Id = V[1],
+
+            Borders = EdgeIdsToBorders.get(Id, []),
+            EdgeIdsToBorders.put(Id, [K|Borders])
+        end,
+    end,
+    Corners = [K: (K = V) in EdgeIdsToBorders.map_to_list, V.len == 2],
+    printf("Part1: %w; ", Corners.prod),
+
+    PuzzleSize = Tiles.len.sqrt.to_int,
+    TileIds = {{0: C in 1..PuzzleSize}: R in 1..PuzzleSize},
+    (_, ATile) = Tiles[1],
+    TileSize = ATile.len-2,
+    Pixels = {{'x': C in 1..PuzzleSize*TileSize}: R in 1..PuzzleSize*TileSize},
+    
+    Corner1 = Corners[1],
+    FoundVerNextIds = [Corner1],
+    Corner1Edges = EdgeIdsToBorders.get(Corner1),
+    VerBorder = Corner1Edges[1],
+
+    TileRow = 1,
+    do
+        TileCol = 1,
+        VerId = FoundVerNextIds[1],
+        FoundHorNextIds = [VerId],
+        VerEdges = EdgeIdsToBorders.get(VerId),
+        if (VerEdges.len == 1)
+            HorBorder := VerEdges[1]
+        else
+            Borders = zip(IdsToBorders.get(VerId), [0,1,0,1]),
+            {_, VerBorderDir}= [{Border, Dir}: {Border, Dir} in Borders, Border == VerBorder].head,
+            VerEdgesDir= [{Border, Dir}: {Border, Dir} in Borders, membchk(Border, VerEdges)],
+            HorBorderDir = [Border: {Border, Dir} in VerEdgesDir, Dir != VerBorderDir],
+
+            HorBorder := HorBorderDir.first,
+        end,
+        do
+            HorId = FoundHorNextIds[1],
+            TileBorders = IdsToBorders.get(HorId),
+            {FoundIdx,_} = [{Idx, Border}: {Idx, Border} in zip(1..4, TileBorders), Border == HorBorder].first,
+            % this all if is about to figure out if we need to flip or not
+            if (TileRow == 1) % we need to figure out the top edge
+                AfterBorder = TileBorders[(FoundIdx mod 4) + 1],
+                Edges = EdgeIdsToBorders.get(HorId),
+
+                if (membchk(AfterBorder, Edges))
+                    NeedsFlip = false,
+                    BottomBorder = TileBorders[((FoundIdx - 2) mod 4) + 1],
+                else
+                    NeedsFlip = true,
+                    BottomBorder = AfterBorder
+                end
+            else % for the rows after 1, we need to align with the bottom of the above tile
+                AfterBorder = TileBorders[(FoundIdx mod 4) + 1],
+                (_, AboveBorder) = TileIds[TileRow-1, TileCol],
+                if (AfterBorder == AboveBorder)
+                    NeedsFlip = false,
+                    BottomBorder = TileBorders[((FoundIdx - 2) mod 4) +1],
+                else
+                    NeedsFlip = true,
+                    BottomBorder = AfterBorder
+                end
+            end,
+            TileIds[TileRow,  TileCol] := (HorId, BottomBorder), % HorId was used for debugging
+            TilePixels = IdsToTiles.get(HorId).rotate_rN(4-FoundIdx),
+            if (NeedsFlip)
+                TilePixels := TilePixels.reverse
+            end,
+            copyMatrix(TilePixels, Pixels, 1 + (TileRow-1)*TileSize, 1 + (TileCol-1)*TileSize),
+
+            (NextHorIds, NextHorBorder) = getNextIds(IdsToBorders, BorderToId, HorId, HorBorder),
+            FoundHorNextIds := NextHorIds,
+            HorBorder := NextHorBorder,
+            TileCol := TileCol + 1
+        while(FoundHorNextIds.len != 0),
+
+        (NextVerIds, NextVerBorder) = getNextIds(IdsToBorders, BorderToId, VerId, VerBorder),
+        FoundVerNextIds := NextVerIds,
+        VerBorder := NextVerBorder,
+        TileRow := TileRow + 1
+    while(FoundVerNextIds.len != 0),
+
+    Monsters = findSeaMonsters(Pixels),
+    Blocks = [1: R in 1..Pixels.len, C in 1..Pixels[R].len, Pixels[R, C] == '#'].len,
+    MonsterLen = getMonster().len,
+    printf("Part2: %w%n", Blocks - Monsters * MonsterLen).
