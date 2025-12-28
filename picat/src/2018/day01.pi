@@ -1,0 +1,14 @@
+main([File]) =>
+    Inputs = read_file_lines(File).map(to_int).to_array(),
+    printf("Part1: %w; ", Inputs.sum),
+
+    InputsLen = Inputs.len,
+    Seen = new_set(0),
+    Part2 = 0,
+    I = 1,
+    do
+        Seen.put(Part2),
+        Part2 := Part2 + Inputs[I],
+        I := cond(I == InputsLen, 1, I + 1)
+    while (not(Seen.has_key(Part2))),
+    printf("Part2: %w%n", Part2).
