@@ -27,3 +27,14 @@ setup() {
     run aoc_day
     assert_output 'Part1: 3176; Part2: 14710'
 }
+
+# bats test_tags=input:sample, year:2015, day:10
+@test "AoC 2015 Day 10: Elves Look, Elves Say      - sample" {
+    run aoc_day _test
+    assert_output 'Part1: 245442; Part2: 3476808'
+}
+# bats test_tags=input:real, year:2015, day:10
+@test "AoC 2015 Day 10: Elves Look, Elves Say      - real  " {
+    run aoc_day
+    assert_output 'Part1: 252594; Part2: 3579328'
+}

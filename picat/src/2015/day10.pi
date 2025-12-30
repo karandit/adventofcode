@@ -1,0 +1,14 @@
+import util.
+
+look_and_say(Input) = Out => look_and_say_aux(Input.first, Input.drop(1), 1, [], Out).
+
+look_and_say_aux(C, [],    Cnt, Res, Out)         => Out = [Last | [Cnt | Res]].reverse.
+look_and_say_aux(C, [H|T], Cnt, Res, Out), C == H => look_and_say_aux(C, T, Cnt+1, Res, Out).
+look_and_say_aux(C, [H|T], Cnt, Res, Out)         => look_and_say_aux(H, T, 1, [C | [Cnt | Res]], Out).
+
+main([File]) =>
+    Input = read_file_lines(File).first.map(to_int),
+    foreach(_ in 1..40) Input := Input.look_and_say end,
+    printf("Part1: %w; ", Input.len),
+    foreach(_ in 1..10) Input := Input.look_and_say end,
+    printf("Part2: %w%n", Input.len).
