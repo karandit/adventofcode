@@ -1,0 +1,34 @@
+import util.
+
+parseGate(L, Out), append(L1, " AND ", L2, L)    => Out = (and, L1, L2).
+parseGate(L, Out), append(L1, " OR ", L2, L)     => Out = (or, L1, L2).
+parseGate(L, Out), append(L1, " LSHIFT ", L2, L) => Out = (lshift, L1, L2).
+parseGate(L, Out), append(L1, " RSHIFT ", L2, L) => Out = (rshift, L1, L2).
+parseGate(L, Out), append("NOT ", L1, L)         => Out = (not, L1).
+parseGate(L, Out)                                => Out = (assign, L).
+
+parseInstr(L) = (RHS.strip = Gate) => 
+    [LHS, RHS] = L.split("->"),
+    LHS.strip.parseGate(Gate).
+
+emul(Instrs, (and, V1, V2))     = eval(Instrs, V1) /\ eval(Instrs, V2).
+emul(Instrs, (or,  V1, V2))     = eval(Instrs, V1) \/ eval(Instrs, V2).
+emul(Instrs, (lshift, V1, V2))  = eval(Instrs, V1) << eval(Instrs, V2).
+emul(Instrs, (rshift, V1, V2))  = eval(Instrs, V1) >> eval(Instrs, V2).
+emul(Instrs, (not, V))          = ~eval(Instrs, V).
+emul(Instrs, (assign, V))       = eval(Instrs, V).
+
+table(+,+)
+eval(Instrs, X) = Res =>
+    Digits = [C : C in X, digit(C)],
+    Res = cond((Digits.len = X.len), Digits.to_int, emul(Instrs, Instrs.get(X))).
+    
+main([File]) =>
+    Instrs = read_file_lines(File).map(parseInstr).new_map,  
+    
+    Part1 = eval(Instrs, "a"),
+    printf("Part1: %w; ", Part1),
+
+    initialize_table,
+    Instrs.put("b", (assign, Part1.to_string)),
+    printf("Part2: %w%n", eval(Instrs, "a")).
