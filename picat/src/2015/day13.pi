@@ -1,0 +1,43 @@
+import util, cp.
+
+parseSitting(S) = ((A, B) =  Value) => 
+    append(A, " would ", R, S),
+    append(Op, " happiness units by sitting next to ", BDot, R),
+    append(B, ".", BDot),
+    [Dir, V] = Op.split(" "),
+    Value = cond(Dir == "gain", 1, -1) * V.to_int.
+
+getMaxHappiness(Vs, N) = Max =>
+    Vars = new_array(N),
+    Vars :: 1..N,
+    all_distinct(Vars),
+    Perms = solve_all(Vars),
+
+    Max = [[Vs[Perm[I], Perm[I+1]]: I in 1..N-1].sum + Vs[Perm[N], Perm[1]]: Perm in Perms].max.
+
+main([File]) =>
+    Inputs = read_file_lines(File).map(parseSitting),
+    NamesSet = new_set(),
+    foreach(((A,B) = _) in Inputs)
+        NamesSet.put(A),
+        NamesSet.put(B),
+    end,
+    Names = NamesSet.keys.to_array.sort,
+    N = Names.len,
+    NamesIdx = [(Names[I] = I): I in 1..Names.len].new_map,
+    
+    Vs = new_array(N+1, N+1),
+    foreach(((A,B) = V) in Inputs)
+        Vs[NamesIdx.get(A), NamesIdx.get(B)] = V,
+    end,
+    foreach(I in 1..N)
+        foreach(J in I+1..N)
+            S = Vs[I,J] + Vs[J,I],
+            Vs[I, J] := S,
+            Vs[J,I] := S
+        end,
+    end,
+    printf("Part1: %w; ", getMaxHappiness(Vs, N)),
+
+    foreach(I in 1..N+1) Vs[N+1, I] = 0, Vs[I, N+1] = 0 end,
+    printf("Part2: %w%n", getMaxHappiness(Vs, N+1)).
