@@ -1,0 +1,22 @@
+import util, cp.
+
+parseIngredient(S) = S.split(" ").last.to_int.
+
+parseIngredients(S) = S.split(":").last.split(",").map(parseIngredient).to_array. 
+
+score(Inputs, Teaspoons) = prod([max(0, sum([Teaspoons[I] * Inputs[I, Prop]: I in 1..Teaspoons.len])): Prop in 1..4]).
+
+calories(Inputs, Teaspoons) = sum([Teaspoons[I] * Inputs[I, 5]: I in 1..Teaspoons.len]).
+
+main([File]) =>
+    Inputs = read_file_lines(File).map(parseIngredients).to_array,
+    
+    Teaspoons = new_array(Inputs.len),
+    Teaspoons :: 1..100,
+    100 #= sum(Teaspoons),
+    Sols = solve_all(Teaspoons),
+
+    Part1 = [score(Inputs, Sol): Sol in Sols].max,
+    printf("Part1: %w; ", Part1),
+    Part2 = [score(Inputs, Sol): Sol in Sols, calories(Inputs, Sol) == 500].max,
+    printf("Part2: %w%n", Part2).
