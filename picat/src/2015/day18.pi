@@ -1,0 +1,31 @@
+neight8(X, Y) = [(X-1,Y-1),(X,Y-1),(X+1,Y-1),(X-1,Y),(X+1,Y),(X-1,Y+1),(X,Y+1),(X+1,Y+1)].
+
+neighbours(Grid, N, R, C) = [1: (X, Y) in neight8(R, C), X > 0, Y > 0, X <=N, Y <= N, Grid[X, Y] == '#'].len.
+    
+step(Grid, N) = G =>
+    G = new_array(N, N), 
+    foreach (R in 1..N, C in 1..N)
+        N8 = neighbours(Grid, N, R, C),
+        if (Grid[R, C] == '#')
+           G[R,C] = cond((N8 == 3; N8 == 2), '#', '.') 
+        else
+           G[R,C] = cond(N8 == 3, '#', '.') 
+        end,
+    end.
+
+turnOnCorners(Grid, N) => Grid[1,1] := '#', Grid[1,N] := '#', Grid[N,1] := '#', Grid[N,N] := '#'.
+
+countLights(Grid, N) = [1: R in 1..N, C in 1..N, Grid[R,C] == '#'].len.
+
+main([File]) =>
+    Input = {{C: C in R}: R in read_file_lines(File)},
+    N = Input.len,
+
+    Grid = copy_term(Input),
+    foreach (_ in 1..100) Grid := step(Grid, N), end,
+    printf("Part1: %w; ", countLights(Grid, N)),
+
+    Grid := copy_term(Input),
+    turnOnCorners(Grid, N),
+    foreach (_ in 1..100) Grid := step(Grid, N), turnOnCorners(Grid, N), end,
+    printf("Part2: %w%n", countLights(Grid, N)).
