@@ -60,3 +60,9 @@ setup() {
     run aoc_day
     assert_output 'Part1: 222870; Part2: 117936'
 }
+
+# bats test_tags=input:real, year:2015, day:16
+@test "AoC 2015 Day 16: Aunt Sue                    - real  " {
+    run aoc_day
+    assert_output 'Part1: 40; Part2: 241'
+}

@@ -1,0 +1,34 @@
+import util.
+
+pred1(("children", 3)) => true.
+pred1(("cats", 7)) => true.
+pred1(("samoyeds", 2)) => true.
+pred1(("pomeranians", 3)) => true.
+pred1(("akitas", 0)) => true.
+pred1(("vizslas", 0)) => true.
+pred1(("goldfish", 5)) => true.
+pred1(("trees", 3)) => true.
+pred1(("cars", 2)) => true.
+pred1(("perfumes", 1)) => true.
+pred1(_) => false.
+
+pred2(("cats", N)) => N > 7.
+pred2(("trees", N)) => N > 3.
+pred2(("pomeranians", N)) => N < 3.
+pred2(("goldfish", N)) => N < 5.
+pred2(V) => pred1(V).
+
+parseCompound(S) = (Kind, V.to_int) => [Kind, V] = S.strip.split(":").
+
+parseCompounds(S) = (Id, Compounds) =>
+    append("Sue ", L1, S),
+    append(Id, ":", L, L1),
+    Compounds = L.split(",").map(parseCompound).
+
+main([File]) =>
+    Inputs = read_file_lines(File).map(parseCompounds),
+    
+    Part1 = [Id: (Id, Comps) in Inputs, [1: Comp in Comps, pred1(Comp)].len == Comps.len].head,
+    printf("Part1: %w; ", Part1),
+    Part2 = [Id: (Id, Comps) in Inputs, [1: Comp in Comps, pred2(Comp)].len == Comps.len].head,
+    printf("Part2: %w%n", Part2).
