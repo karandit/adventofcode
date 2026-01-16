@@ -1,0 +1,39 @@
+import util.
+
+parseReplacement(S) = (From, To) => append(From, " => ", To, S).
+
+splitMol([], Current, Mols) = [Current.reverse|Mols].reverse.drop(1).
+splitMol([C|S], Current, Mols) = Res =>
+    if (ascii_uppercase(C))
+        Res = splitMol(S, [C], [Current.reverse|Mols])
+    else
+        Res = splitMol(S, [C|Current], Mols)
+    end.
+    
+generateMols(ReplsMap, MolBefore, [], Uniques) = Uniques.size.
+generateMols(ReplsMap, MolBefore, [Mol|MolAfter], Uniques) = generateMols(ReplsMap, MolBefore ++ Mol, MolAfter, Uniques) =>
+    MolAfterS = MolAfter.join(''),
+    foreach (Dst in ReplsMap.get(Mol, []))
+        Uniques.put(to_fstring("%s%s%s", MolBefore, Dst, MolAfterS))
+    end.
+
+countMols([],          Acc) = Acc.
+countMols(["Rn"|Mols], Acc) = countMols(Mols, Acc).
+countMols(["Y" |Mols], Acc) = countMols(Mols, Acc - 1).
+countMols(["Ar"|Mols], Acc) = countMols(Mols, Acc).
+countMols([_   |Mols], Acc) = countMols(Mols, Acc + 1).
+
+main([File]) =>
+    [R1, R2] = read_file_lines(File).split([""]),
+    Repls = R1.map(parseReplacement),
+    Molec = R2.first,
+
+    ReplsMap = new_map(0), 
+    foreach ((Src, Dst) in Repls)
+        Ls = ReplsMap.get(Src, []),
+        ReplsMap.put(Src, [Dst|Ls])
+    end,
+
+    Mols = splitMol(Molec, "", []),
+    printf("Part1: %w; ", generateMols(ReplsMap, "", Mols, new_set())),
+    printf("Part2: %w%n", countMols(Mols, -1)).
