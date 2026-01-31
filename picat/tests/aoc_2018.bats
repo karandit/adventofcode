@@ -6,7 +6,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2018, day:01
 @test "AoC 2018 Day 01 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 3; Part2: 2'
 }
 # bats test_tags=input:real, year:2018, day:01

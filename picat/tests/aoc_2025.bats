@@ -6,7 +6,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:01
 @test "AoC 2025 Day 01 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 3; Part2: 6'
 }
 # bats test_tags=input:real, year:2025, day:01
@@ -17,7 +17,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:02
 @test "AoC 2025 Day 02 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 1227775554; Part2: 4174379265'
 }
 # bats test_tags=input:real, year:2025, day:02
@@ -29,7 +29,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:03
 @test "AoC 2025 Day 03 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 357; Part2: 3121910778619'
 }
 # bats test_tags=input:real, year:2025, day:03
@@ -40,7 +40,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:04
 @test "AoC 2025 Day 04 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 13; Part2: 43'
 }
 # bats test_tags=input:real, year:2025, day:04
@@ -52,7 +52,7 @@ setup() {
 # bats test_tags=input:sample, year:2025, day:05
 @test "AoC 2025 Day 05 Sample" {
     skip "Solved in Haskell"
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 3; Part2: 14'
 }
 # bats test_tags=input:real, year:2025, day:05
@@ -64,7 +64,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:06
 @test "AoC 2025 Day 06 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 4277556; Part2: 3263827'
 }
 # bats test_tags=input:real, year:2025, day:06
@@ -75,7 +75,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:07
 @test "AoC 2025 Day 07 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 21; Part2: 40'
 }
 # bats test_tags=input:real, year:2025, day:07
@@ -86,7 +86,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:08
 @test "AoC 2025 Day 08 Sample" {
-    run picat picat/src/2025/day08.pi 10 inputs/sample/2025/day08_test.txt
+    run picat picat/src/2025/day08.pi 10 inputs/sample/2025/day08.txt
     assert_output 'Part1: 40; Part2: 25272'
 }
 # bats test_tags=input:real, year:2025, day:08
@@ -97,7 +97,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:09
 @test "AoC 2025 Day 09 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 50; Part2: 24'
 }
 # bats test_tags=input:real, year:2025, day:09
@@ -108,7 +108,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:10
 @test "AoC 2025 Day 10 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: 7; Part2: 33'
 }
 # bats test_tags=input:real, year:2025, day:10
@@ -120,9 +120,9 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:11
 @test "AoC 2025 Day 11 Sample" {
-    run picat picat/src/2025/day11.pi 1 inputs/sample/2025/day11_test1.txt
+    run picat picat/src/2025/day11.pi 1 inputs/sample/2025/day11_1.txt
     assert_output 'Part1: 5; '
-    run picat picat/src/2025/day11.pi 2 inputs/sample/2025/day11_test2.txt
+    run picat picat/src/2025/day11.pi 2 inputs/sample/2025/day11_2.txt
     assert_output 'Part2: 2'
 }
 # bats test_tags=input:real, year:2025, day:11
@@ -133,7 +133,7 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:12
 @test "AoC 2025 Day 12 Sample" {
-    run aoc_day _test
+    run aoc_day
     assert_output 'Part1: Sorry, I can not solve this'
 }
 # bats test_tags=input:real, year:2025, day:12
