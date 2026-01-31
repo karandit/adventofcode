@@ -5,89 +5,87 @@ setup() {
 }
 
 # bats test_tags=input:sample, year:2025, day:01
-@test "AoC 2025 Day 01 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 01: Secret Entrance             - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:01
-@test "AoC 2025 Day 01" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 01: Secret Entrance             - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:02
-@test "AoC 2025 Day 02 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 02: Gift Shop                   - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:02
-@test "AoC 2025 Day 02" {
+@test "AoC 2025 Day 02: Gift Shop                   - real  " {
     skip "Too slow"
-    run aoc_day
-    assert_aoc_day
+    run aoc_day; assert_aoc_day
 }
 
 # bats test_tags=input:sample, year:2025, day:03
-@test "AoC 2025 Day 03 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 03: Lobby                       - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:03
-@test "AoC 2025 Day 03" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 03: Lobby                       - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:04
-@test "AoC 2025 Day 04 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 04: Printing Department         - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:04
-@test "AoC 2025 Day 04" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 04: Printing Department         - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:05
-@test "AoC 2025 Day 05 Sample" {
+@test "AoC 2025 Day 05: Cafeteria                   - sample" {
     skip "Solved in Haskell"
     run aoc_day; assert_aoc_day;
 }
 # bats test_tags=input:real, year:2025, day:05
-@test "AoC 2025 Day 05" {
+@test "AoC 2025 Day 05: Cafeteria                   - real  " {
     skip "Solved in Haskell"
-    run aoc_day
-    assert_aoc_day
+    run aoc_day; assert_aoc_day
 }
 
 # bats test_tags=input:sample, year:2025, day:06
-@test "AoC 2025 Day 06 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 06: Trash Compactor             - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:06
-@test "AoC 2025 Day 06" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 06: Trash Compactor             - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:07
-@test "AoC 2025 Day 07 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 07: Laboratories                - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:07
-@test "AoC 2025 Day 07" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 07: Laboratories                - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:08
-@test "AoC 2025 Day 08 Sample" {
+@test "AoC 2025 Day 08: Playground                  - sample" {
     run picat picat/src/2025/day08.pi 10 inputs/sample/2025/day08.txt
     assert_aoc_day
 }
 # bats test_tags=input:real, year:2025, day:08
-@test "AoC 2025 Day 08" {
+@test "AoC 2025 Day 08: Playground                  - real  " {
     run picat picat/src/2025/day08.pi 1000 inputs/real/2025/day08.txt
     assert_aoc_day
 }
 
 # bats test_tags=input:sample, year:2025, day:09
-@test "AoC 2025 Day 09 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 09: Movie Theater               - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:09
-@test "AoC 2025 Day 09" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 09: Movie Theater               - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:10
-@test "AoC 2025 Day 10 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 10: Factory                     - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:10
-@test "AoC 2025 Day 10" {
+@test "AoC 2025 Day 10: Factory                     - real  " {
     skip "Too slow"
     run aoc_day; assert_aoc_day
 }
 
 # bats test_tags=input:sample, year:2025, day:11
-@test "AoC 2025 Day 11 Sample" {
+@test "AoC 2025 Day 11: Reactor                     - sample" {
     run picat picat/src/2025/day11.pi 1 inputs/sample/2025/day11_1.txt
     assert_aoc_day _1
     run picat picat/src/2025/day11.pi 2 inputs/sample/2025/day11_2.txt
     assert_aoc_day _2
 }
 # bats test_tags=input:real, year:2025, day:11
-@test "AoC 2025 Day 11" {
+@test "AoC 2025 Day 11: Reactor                     - real  " {
     run picat picat/src/2025/day11.pi 12 inputs/real/2025/day11.txt
     assert_aoc_day
 }
 
 # bats test_tags=input:sample, year:2025, day:12
-@test "AoC 2025 Day 12 Sample" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 12: Christmas Tree Farm         - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:12
-@test "AoC 2025 Day 12" { run aoc_day; assert_aoc_day; }
+@test "AoC 2025 Day 12: Christmas Tree Farm         - real  " { run aoc_day; assert_aoc_day; }
