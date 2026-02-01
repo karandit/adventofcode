@@ -1,6 +1,12 @@
 import util.
 
-main([File, NArg, FallenArg]) =>
+main([File]) =>
+    append("day18", Arg, ".txt", File.split("/").last),
+    if (Arg.len == 0)
+        NArg = "70", FallenArg = "1024"
+    else
+        append(NArg, "_", FallenArg, Arg.drop(1)),
+    end,
     N = 1 + NArg.to_int,
     Fallen = FallenArg.to_int,
     Inputs = [Line.split(",").map(to_int): Line in read_file_lines(File)],

@@ -23,15 +23,9 @@ setup() {
 @test "AoC 2024 Day 17: Chronospatial Computer      - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2024, day:18
-@test "AoC 2024 Day 18: RAM Run                     - sample" {
-    run picat picat/src/2024/day18.pi inputs/sample/2024/day18.txt 6 12
-    assert_aoc_day
-}
+@test "AoC 2024 Day 18: RAM Run                     - sample" { run aoc_day _6_12; assert_aoc_day _6_12; }
 # bats test_tags=input:real, year:2024, day:18
-@test "AoC 2024 Day 18: RAM Run                     - real  " {
-    run picat picat/src/2024/day18.pi inputs/real/2024/day18.txt 70 1024
-    assert_aoc_day
-}
+@test "AoC 2024 Day 18: RAM Run                     - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2024, day:22
 @test "AoC 2024 Day 22: Monkey Market               - sample" { run aoc_day; assert_aoc_day; }
