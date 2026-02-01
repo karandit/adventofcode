@@ -6,7 +6,9 @@ table(+,+,+)
 find_paths(G, Src, Dst) = 1, Src == Dst => true.
 find_paths(G, Src, Dst) = [find_paths(G, E, Dst) : E in G.get(Src)].sum.
 
-main([Which, File]) =>
+main([File]) =>
+    append("day11", N, ".txt", File.split("/").last),
+    Which =  cond(N.len == 0, "12", N.drop(1)),
     G  = File.read_file_lines.map(parse).new_map,
     G.put("out", []),
 

@@ -74,16 +74,11 @@ setup() {
 
 # bats test_tags=input:sample, year:2025, day:11
 @test "AoC 2025 Day 11: Reactor                     - sample" {
-    run picat picat/src/2025/day11.pi 1 inputs/sample/2025/day11_1.txt
-    assert_aoc_day _1
-    run picat picat/src/2025/day11.pi 2 inputs/sample/2025/day11_2.txt
-    assert_aoc_day _2
+    run aoc_day _1; assert_aoc_day _1
+    run aoc_day _2; assert_aoc_day _2
 }
 # bats test_tags=input:real, year:2025, day:11
-@test "AoC 2025 Day 11: Reactor                     - real  " {
-    run picat picat/src/2025/day11.pi 12 inputs/real/2025/day11.txt
-    assert_aoc_day
-}
+@test "AoC 2025 Day 11: Reactor                     - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:12
 @test "AoC 2025 Day 12: Christmas Tree Farm         - sample" { run aoc_day; assert_aoc_day; }
