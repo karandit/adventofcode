@@ -32,7 +32,9 @@ connectBoxes((_, B0, B1), BoxIds, MovedBoxToBox, CircuitsToBoxIds) =>
         put(MovedBoxToBox, B0Idx, B1Idx),
     end.
 
-main([ConnLimitS,File]) =>
+main([File]) =>
+    append("day08", N, ".txt", File.split("/").last),
+    ConnLimitS =  cond(N.len == 0, "1000", N.drop(1)),
     Boxes = File.read_file_lines.map(parse).to_array,
     ConnLimit = ConnLimitS.to_int,
 

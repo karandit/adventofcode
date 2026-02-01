@@ -49,15 +49,9 @@ setup() {
 @test "AoC 2025 Day 07: Laboratories                - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:08
-@test "AoC 2025 Day 08: Playground                  - sample" {
-    run picat picat/src/2025/day08.pi 10 inputs/sample/2025/day08.txt
-    assert_aoc_day
-}
+@test "AoC 2025 Day 08: Playground                  - sample" { run aoc_day _10; assert_aoc_day _10; }
 # bats test_tags=input:real, year:2025, day:08
-@test "AoC 2025 Day 08: Playground                  - real  " {
-    run picat picat/src/2025/day08.pi 1000 inputs/real/2025/day08.txt
-    assert_aoc_day
-}
+@test "AoC 2025 Day 08: Playground                  - real  " { run aoc_day; assert_aoc_day; }
 
 # bats test_tags=input:sample, year:2025, day:09
 @test "AoC 2025 Day 09: Movie Theater               - sample" { run aoc_day; assert_aoc_day; }
