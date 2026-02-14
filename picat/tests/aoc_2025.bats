@@ -62,7 +62,7 @@ setup() {
 @test "AoC 2025 Day 10: Factory                     - sample" { run aoc_day; assert_aoc_day; }
 # bats test_tags=input:real, year:2025, day:10
 @test "AoC 2025 Day 10: Factory                     - real  " {
-    skip "Too slow"
+    #skip "Too slow"
     run aoc_day; assert_aoc_day
 }
 
