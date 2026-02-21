@@ -35,7 +35,17 @@ determine1_aux(Target, Lights, Wires, Pushes) = Sol =>
         Sol = min(Pushes1, Pushes0),
     end.
 
-determine2(Wires, ButIdxArrs,Joltage) = Pushes =>
+determine2((_, Wires, Joltage)) = Pushes.sum =>
+    Buttons = new_array(Wires.len, Joltage.len),
+    bind_vars(Buttons, 0),
+    foreach (I in 1..Wires.len)
+        foreach(Button in Wires[I])
+            Buttons[I, Button+1] :=1,
+        end
+    end,
+    ButTrans = Buttons.transpose,
+    ButIdxArrs = {{I: I in 1..Row.len, Row[I] == 1 }  :Row in ButTrans  },
+
     Pushes = new_array(Wires.len),
     foreach(I in 1..Pushes.len)
         Limit = min([Joltage[Btn + 1]: Btn in Wires[I]]),
@@ -53,20 +63,5 @@ main([File]) =>
     Ms = File.read_file_lines.map(parse),
     Part1 = [determine1(M): M in Ms].sum,
     printf("Part1: %w; ", Part1),
-    Part2 = 0,
-    foreach (M in Ms)
-        (_, Wires, Joltage) = M,
-        Buttons = new_array(Wires.len, Joltage.len),
-        bind_vars(Buttons, 0),
-        foreach (I in 1..Wires.len)
-            foreach(Button in Wires[I])
-                Buttons[I, Button+1] :=1,
-            end
-        end,
-        ButTrans = Buttons.transpose,
-        Flags = {{I: I in 1..Row.len, Row[I] == 1 }  :Row in ButTrans  },
-
-        Sol = determine2(Wires, Flags, Joltage),
-        Part2 := Part2 + Sol.sum,
-    end,
+    Part2 = [determine2(M): M in Ms].sum,
     printf("Part2: %w%n", Part2).
