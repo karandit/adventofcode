@@ -21,17 +21,19 @@ toggle(Ls, Wr) = LsNew =>
         LsNew[N1] := 1-LsNew[N1]
     end.
 
-determine1((Light,Wires,_)) = Sol =>
-    L0 = new_array(Light.len),
-    bind_vars(L0, 0),
+determine1((Lights,Wires,_)) = determine1_aux(Lights, {0: _ in 1..Lights.len}, Wires, 0).
 
-    between(1, 1000, Sol),
-    foreach (_ in 1..Sol)
-        member(Wr, Wires),
-        L0 := toggle(L0, Wr), 
-    end,
-    foreach(I in 1..Light.len) L0[I] #= Light[I] end,
-    solve([$min(Sol)], Sol).
+determine1_aux(Target, Lights, Wires, Pushes) = Sol =>
+    if (Target == Lights)
+        Sol = Pushes,
+    elseif (Wires.len == 0)
+        Sol = 10000,
+    else
+        [Wire|Rest] = Wires,
+        Pushes0 = determine1_aux(Target, Lights,               Rest, Pushes),
+        Pushes1 = determine1_aux(Target, toggle(Lights, Wire), Rest, Pushes+1),
+        Sol = min(Pushes1, Pushes0),
+    end.
 
 determine2(Wires, ButIdxArrs,Joltage) = Pushes =>
     Pushes = new_array(Wires.len),
