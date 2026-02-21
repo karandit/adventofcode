@@ -21,21 +21,21 @@ toggle(Ls, Wr) = LsNew =>
         LsNew[N1] := 1-LsNew[N1]
     end.
 
-determine1((Lights,Wires,_)) = determine1_aux(Lights, {0: _ in 1..Lights.len}, Wires, 0).
+part1((Lights,Wires,_)) = part1_aux(Lights, {0: _ in 1..Lights.len}, Wires, 0).
 
-determine1_aux(Target, Lights, Wires, Pushes) = Sol =>
+part1_aux(Target, Lights, Wires, Pushes) = Sol =>
     if (Target == Lights)
         Sol = Pushes,
     elseif (Wires.len == 0)
         Sol = 10000,
     else
         [Wire|Rest] = Wires,
-        Pushes0 = determine1_aux(Target, Lights,               Rest, Pushes),
-        Pushes1 = determine1_aux(Target, toggle(Lights, Wire), Rest, Pushes+1),
+        Pushes0 = part1_aux(Target, Lights,               Rest, Pushes),
+        Pushes1 = part1_aux(Target, toggle(Lights, Wire), Rest, Pushes+1),
         Sol = min(Pushes1, Pushes0),
     end.
 
-determine2((_, Wires, Joltage)) = Pushes.sum =>
+part2((_, Wires, Joltage)) = Pushes.sum =>
     Buttons = new_array(Wires.len, Joltage.len),
     bind_vars(Buttons, 0),
     foreach (I in 1..Wires.len)
@@ -61,7 +61,7 @@ determine2((_, Wires, Joltage)) = Pushes.sum =>
 
 main([File]) =>
     Ms = File.read_file_lines.map(parse),
-    Part1 = [determine1(M): M in Ms].sum,
+    Part1 = [part1(M): M in Ms].sum,
     printf("Part1: %w; ", Part1),
-    Part2 = [determine2(M): M in Ms].sum,
+    Part2 = [part2(M): M in Ms].sum,
     printf("Part2: %w%n", Part2).
