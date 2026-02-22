@@ -23,17 +23,11 @@ toggle(Ls, Wr) = LsNew =>
 
 part1((Lights,Wires,_)) = part1_aux(Lights, {0: _ in 1..Lights.len}, Wires, 0).
 
-part1_aux(Target, Lights, Wires, Pushes) = Sol =>
-    if (Target == Lights)
-        Sol = Pushes,
-    elseif (Wires.len == 0)
-        Sol = 10000,
-    else
-        [Wire|Rest] = Wires,
-        Pushes0 = part1_aux(Target, Lights,               Rest, Pushes),
-        Pushes1 = part1_aux(Target, toggle(Lights, Wire), Rest, Pushes+1),
-        Sol = min(Pushes1, Pushes0),
-    end.
+part1_aux(Target, Target, _,           Pushes) = Pushes.
+part1_aux(_,      _,      [],           _    ) = 100000.
+part1_aux(Target, Lights, [Wire|Rest], Pushes) = min(Pushes0, Pushes1) =>
+    Pushes0 = part1_aux(Target, Lights,               Rest, Pushes),
+    Pushes1 = part1_aux(Target, toggle(Lights, Wire), Rest, Pushes+1).
 
 part2((_, Wires, Joltage)) = Pushes.sum =>
     Buttons = new_array(Wires.len, Joltage.len),
